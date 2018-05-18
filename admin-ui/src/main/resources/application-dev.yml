@@ -1,0 +1,62 @@
+debug: true
+
+server:
+  port: 8080
+
+spring:
+  # AOP 配置
+  aop:
+    proxy-target-class: true
+
+  jpa:
+    database: mysql
+    show-sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://101.200.59.121:3306/heybro?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+      username: hechuan
+      password: 'hechuan'
+      initial-size: 2
+      max-active: 30
+      min-idle: 2
+      max-wait: 1234
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 5
+      validation-query: select 'x'
+      validation-query-timeout: 1
+      test-on-borrow: true
+      test-while-idle: true
+      test-on-return: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      filters: stat, wall, slf4j
+      aop-patterns: com.heybro
+      stat-view-servlet:
+        login-username: heybro
+        login-password: heybro
+  thymeleaf:
+    cache: false
+
+mybatis:
+    type-aliases-package: com.heybro.entity
+    mapper-locations: classpath:com/heybro/mapper/*.xml
+
+mapper:
+    mappers:
+        - tk.mybatis.mapper.common.Mapper
+    not-empty: false
+    identity: MYSQL
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+logging:
+  level:
+    com.heypro: debug

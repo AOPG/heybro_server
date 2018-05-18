@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.ManageMenuMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.ManageMenu">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="pId" jdbcType="INTEGER" property="pid" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
+    <result column="sortNo" jdbcType="INTEGER" property="sortno" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, name, url, pId, icon, grade, sortNo
+  </sql>
+</mapper>

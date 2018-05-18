@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="zh-CN" layout:decorator="fragment/layout">
+<head>
+    <title>管理后台</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>系统管理</h3>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="clearfix"></div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>角色授权 <small><a href="javascript:window.history.go(-1);">返回</a></small></h2>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <br/>
+                        <div class="x_content">
+                            <br />
+                            <form id="form_save" class="form-horizontal form-label-left">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        角色 *
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="roleId" name="roleId" class="form-control" onchange="authorization(this)"
+                                                required="required" data-error="请选择角色"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <ul id="treeDemo" class="ztree"></ul>
+                                    </div>
+                                </div>
+
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                        <input type="hidden" id="h_id" />
+                                        <button type="button" class="btn btn-success btn-primary" onclick="doAuthorization()">提交</button>
+                                        <button class="btn btn-primary" type="button" onclick="cancel();">取消</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var baseUrl = $('#baseUrl').attr("href");
+        /*<![CDATA[*/
+        $(function () {
+            fillSelectRole();
+            menuTree();
+        });
+
+        var setting = {
+            check: {
+                enable: true,
+                chkboxType: {
+                    "Y": "ps", "N": "ps"
+                }
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            }
+        };
+
+        var zTree;
+
+        function menuTree() {
+            $.ajax({
+                async: false,
+                url: baseUrl+"system/getMenuTree",
+                dataType: "json",
+                type: "post",
+                success: function (jsonData) {
+
+                    if (jsonData.success) {
+                        var zNodes = jsonData.data.tree;
+                        console.log(zNodes);
+                        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                        zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                        zTree.expandAll(true);
+                    }
+                }
+            });
+        }
+
+
+        function doAuthorization() {
+            if (selectRoleId == 0) {
+                layer.msg("请选择角色", {icon: 2});
+                return;
+            }
+            var checkNodes = zTree.getCheckedNodes(true);
+            var menuIds = [];
+            for (var i = 0; i < checkNodes.length; i++) {
+                menuIds.push(checkNodes[i].id);
+            }
+            menuIds = menuIds.join();
+
+            $.ajax({
+                async: false,
+                url: baseUrl+"system/doAuthorization",
+                dataType: "json",
+                type: "post",
+                data: {roleId: selectRoleId, menuIds: menuIds},
+                success: function (jsonData) {
+                    layer.msg(jsonData.msg, {icon: 1});
+                }
+            });
+
+        }
+
+        var selectRoleId = 0;
+
+        function authorization(e) {
+            var roleId=$(e).val();
+            selectRoleId = roleId;
+            $.ajax({
+                async: false,
+                url: baseUrl+"system/getAuthByRoleId",
+                dataType: "json",
+                type: "post",
+                data: {roleId: roleId},
+                success: function (jsonData) {
+                    if (jsonData.success) {
+                        zTree.checkAllNodes(false);
+                        var checkNodes = jsonData.data.tree;
+                        console.log(checkNodes);
+                        for (var i = 0; i < checkNodes.length; i++) {
+                            var node = zTree.getNodeByParam("id", checkNodes[i].menuid);
+                            node.checked = true;
+                            zTree.updateNode(node);
+                        }
+                    }
+                }
+            });
+        }
+        //填充角色下拉框
+        function fillSelectRole() {
+            $.getJSON(baseUrl+'system/indexRoleSearch', "page=1&size=100", function (result) {
+                console.log(result);
+                var list = result.data.list;
+                $("#roleId").empty();
+                $("#roleId").append("<option value=''>请选择</option>");
+                for (var i = 0; i < list.length; i++) {
+                    $("#roleId").append("<option value='" + list[i].info.id + "'>" + list[i].info.name + "</option>");
+                }
+            });
+        }
+
+        /*]]>*/
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="zh-CN" layout:decorator="fragment/layout">
+<head>
+    <title>管理后台</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>系统管理</h3>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="clearfix"></div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>添加轮播图
+                                <small><a href="javascript:window.history.go(-1);">返回</a></small>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <br/>
+                        <div class="x_content">
+                            <br/>
+                            <form id="form_save" class="form-horizontal form-label-left">
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        轮播图照片位置类别 *
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <select id="position_type" name="position_type"
+                                                class="selectpicker show-tick form-control">
+                                            <option value="轮播图位置">轮播图位置</option>
+                                            <option value="广告位置">广告位置</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group img_div">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">上传图片 *</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-group img_area" imgId="1">
+                                            <div>
+                                                <input type="file" name="file" style="display: none" accept="image/*"/>
+                                                <div class="input-group">
+                                                    <!--<input class="form-control col-md-5 col-xs-10 photoCover" type="text" style="display:inline"/>-->
+                                                    <a class="btn btn-info input-group-addon">
+                                                        <sapn class="glyphicon glyphicon-open-file"
+                                                              aria-hidden="true"></sapn>
+                                                        选择图片</a>
+
+                                                    <input class="form-control col-md-6 col-xs-12 photoCover"
+                                                           readonly="readonly" type="text"/>
+                                                    <!--<a class="delet_img btn btn-danger input-group-addon"-->
+                                                       <!--style="background-color: red;border-color:red;">-->
+                                                        <!--<sapn class="glyphicon glyphicon-trash"-->
+                                                              <!--aria-hidden="true"></sapn>-->
+                                                        <!--删除</a>-->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--<a class="btn btn-info" onclick="addImg()">-->
+                                            <!--<sapn class="glyphicon glyphicon-plus" aria-hidden="true"></sapn>-->
+                                            <!--继续添加图片</a>-->
+                                        <!--<br/><br/>-->
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                        <input type="hidden" id="h_id"/>
+                                        <button type="button" class="btn btn-success btn-primary">提交</button>
+                                        <button class="btn btn-primary" type="button" onclick="cancel();">取消</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var baseUrl = $('#baseUrl').attr("href");
+        /*<![CDATA[*/
+
+
+
+        function initImg(dom) {
+            //对新的dom对象进行初始化
+            dom.find("input").val("");
+
+            //对原有的所有事件全部解除绑定
+            dom.find("a").eq(0).unbind();
+            dom.find("input").eq(0).unbind();
+            dom.find("a").eq(1).unbind();
+
+            dom.find("a").eq(0).click(function () {
+                dom.find("input").eq(0).click();
+            })
+            //为新的文本框绑定新事件
+            dom.find("input").eq(0).change(function(){
+                dom.find("input").eq(1).val(dom.find("input")[0].value);
+            });
+
+            //删除按钮
+            dom.find("a").eq(1).click(function () {
+                var domnum =$("div[imgId]").size();
+                if(domnum<2){
+                    layer.msg("至少要上传一张图片!", {icon: 2});
+                }else{
+                    dom.remove();
+                }
+            });
+        }
+
+         //添加图片
+        function addImg() {
+            //获取最后一个dom
+            var lastdom = $("div[imgId]:last");
+            var id = lastdom.attr("imgId");
+
+            //clone出新的dom
+            var newdom = lastdom.clone(true).insertAfter(lastdom);
+            var newid = parseInt(id) + 1;
+            newdom.attr("imgId", newid);
+            initImg(newdom);
+        }
+
+        $(function () {
+        //初始化上传图片模块
+            var firstImgDom = $("div[imgId]:first");
+            initImg(firstImgDom);
+
+          $('#form_save').on('success.form.fv', function (e) {
+          var form = document.getElementById('form_save');
+                var formData = new FormData(form);
+                $.ajax({
+                    url: baseUrl+"banner/doAddPhoto",
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'JSON',
+                    cache: false,
+                    processData: false,
+                    contentType: false
+                }).then(function (res) {
+                    console.log(res);
+                    if (res.success) {
+                        alertAndTurn(res.msg,1,baseUrl+"banner");
+                    } else {
+                        layer.msg(res.msg, {icon: 2});
+                    }
+                }, function (res) {
+                    layer.msg("请求网络失败，请重试", {icon: 2});
+                });
+            }).on('click', '.btn-primary', function () {
+                // 提交表单
+                $('#form_save').data('formValidation').validate();
+            }).formValidation({
+                framework: 'bootstrap',
+                excluded: ':disabled',
+                icon: {
+                    valid: 'fa fa-check',
+                    invalid: 'fa fa-times',
+                    validating: 'fa fa-refresh'
+                },
+                position_type: {
+                    username: {
+                        validators: {
+                            notEmpty: {
+                                message: '轮播图不能为空'
+                            }
+                        }
+                    },
+                    photo_url: {
+                        validators: {
+                            notEmpty: {
+                                message: '图片URL不能为空'
+                            }
+                        }
+
+                    }
+                }
+            });
+        });
+        /*]]>*/
+
+
+
+
+
+
+
+
+    </script>
+</div>
+</body>
+</html>

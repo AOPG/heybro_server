@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="zh-CN" layout:decorator="fragment/layout">
+<head>
+    <title>管理后台</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>系统管理</h3>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="clearfix"></div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>编辑人员 <small><a href="javascript:window.history.go(-1);">返回</a></small></h2>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <br/>
+                        <div class="x_content">
+                            <br />
+                            <form id="form_save" class="form-horizontal form-label-left">
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        账号 *
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text"  id="username" name="username" required="required" data-error="账号不能为空！" class="form-control col-md-7 col-xs-12"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        密码 *
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="password" id="password" name="password"  class="form-control col-md-7 col-xs-12" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        角色 *
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="roleId" name="roleId" class="form-control"
+                                                required="required" data-error="请选择角色"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        手机
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="phone" name="phone" class="form-control col-md-7 col-xs-12"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        姓名 *
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="realname" name="realname" class="form-control col-md-7 col-xs-12"
+                                               required="required" data-error="姓名不能为空！"/>
+                                    </div>
+                                </div>
+
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                        <input type="hidden" id="h_id" name="id"/>
+                                        <button type="button" class="btn btn-success btn-primary">提交</button>
+                                        <button class="btn btn-primary" type="button" onclick="cancel();">取消</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var baseUrl = $('#baseUrl').attr("href");
+        /*<![CDATA[*/
+        $(function () {
+            fillSelectRole();
+            $('#form_save').on('success.form.fv', function (e) {
+                $.ajax({
+                    url: baseUrl+"system/doEditUser",
+                    type: 'POST',
+                    data: $("#form_save").serialize()
+                }).then(function (res) {
+                    console.log(res);
+                    if (res.success) {
+                        alertAndTurn(res.msg,1,baseUrl+"system");
+                    } else {
+                        layer.msg(res.msg, {icon: 2});
+                    }
+                }, function (res) {
+                    layer.msg("请求网络失败，请重试", {icon: 2});
+                });
+            }).on('click', '.btn-primary', function () {
+                // 提交表单
+                $('#form_save').data('formValidation').validate();
+            }).formValidation({
+                framework: 'bootstrap',
+                excluded: ':disabled',
+                icon: {
+                    valid: 'fa fa-check',
+                    invalid: 'fa fa-times',
+                    validating: 'fa fa-refresh'
+                },
+                fields: {
+                    username: {
+                        validators: {
+                            notEmpty: {
+                                message: '帐号不能为空'
+                            }
+                        }
+                    },
+                    roleId: {
+                        validators: {
+                            notEmpty: {
+                                message: '请选择角色'
+                            }
+                        }
+                    },
+                    realname: {
+                        validators: {
+                            notEmpty: {
+                                message: '姓名不能为空'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+        //填充角色下拉框
+        function fillSelectRole() {
+            $.getJSON(baseUrl+'system/indexRoleSearch', "page=1&size=100", function (result) {
+                console.log(result);
+                var list = result.data.list;
+                $("#roleId").empty();
+                $("#roleId").append("<option value=''>请选择</option>");
+                for (var i = 0; i < list.length; i++) {
+                    $("#roleId").append("<option value='" + list[i].info.id + "'>" + list[i].info.name + "</option>");
+                }
+                load();
+            });
+        }
+        function load() {
+            $.ajax({
+                async: false,
+                url: baseUrl+"system/findBackendById",
+                dataType: "json",
+                type: "post",
+                data: {id: GetQueryString("id")},
+                success: function (result) {
+                    console.log(result);
+                    if (result.success) {
+                        $("#username").val(result.data.info.username);
+                        $("#realname").val(result.data.info.realname);
+                        $("#phone").val(result.data.info.phone);
+                        $("#roleId").val(result.data.info.roleId);
+                        $("#h_id").val(result.data.info.id);
+                    }else{
+                        layer.msg("读取人员信息失败", {icon: 2});
+                    }
+                },
+                error: function (a, b, c) {
+                    layer.msg("请求网络失败，请重试", {icon: 2});
+                }
+            });
+        }
+        /*]]>*/
+    </script>
+</div>
+</body>
+</html>

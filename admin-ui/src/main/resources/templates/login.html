@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>系统登陆</title>
+    <!-- Bootstrap -->
+    <link href="/static/vendors/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}"/>
+    <!-- Font Awesome -->
+    <link href="/static/vendors/font-awesome/css/font-awesome.min.css"
+          th:href="@{/vendors/font-awesome/css/font-awesome.min.css}"/>
+    <!-- Custom Theme Style -->
+    <link href="/build/css/custom.min.css" th:href="@{/build/css/custom.min.css}" rel="stylesheet"/>
+    <script src="/static/build/js/jquery-1.8.2.min.js" th:src="@{/build/js/jquery-1.8.2.min.js}"></script>
+    <link href="/js/layer/skin/layer.css" th:href="@{/js/layer/skin/layer.css}" rel="stylesheet"/>
+    <link href="/static/build/css/login.css" th:href="@{/build/css/login.css}" rel="stylesheet"/>
+    <script src="/js/layer/layer.js" th:src="@{/js/layer/layer.js}"></script>
+
+    <script>
+        //回车键
+        document.onkeydown = function (e) {
+            if (!e) e = window.event; //火狐中是 window.event
+            if ((e.keyCode || e.which) == 13) {
+                var obtnSearch = document.getElementById("btn_login");
+                obtnSearch.click();
+            }
+        }
+    </script>
+</head>
+<body class="login">
+<div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <section class="login_content">
+                <form class="form-signin" th:action="@{/login}" method="post">
+                    <h1>用户登陆</h1>
+                    <div>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="用户名"
+                               required=""/>
+                    </div>
+                    <div>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="密码"
+                               required=""/>
+                    </div>
+                    <div>
+                        <button class="btn btn-default submit" type="submit" id="btn_login">登录</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>
