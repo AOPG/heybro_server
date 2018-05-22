@@ -1,0 +1,10 @@
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+    <div class="menu_section">
+        <input type="hidden"  id="h_menu" th:value="${#authentication.principal.menu}"/>
+        <ul class="nav side-menu" id="ul_menu">
+        </ul>
+    </div>
+</div>
+<script>
+    $("#ul_menu").html($("#h_menu").val());
+</script>

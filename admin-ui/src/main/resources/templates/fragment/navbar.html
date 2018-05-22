@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/login}">共享链后台管理系统</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse" sec:authorize="isAuthenticated()">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/statistic-manage}">系统概览</a></li>
+                <li><a th:href="@{/switch/applet-manage}">接入管理</a></li>
+                <li><a th:href="@{/user-manage}">人员管理</a></li>
+                <li><a th:href="@{/finance-manage}">财务管理</a></li>
+                <li><a th:href="@{/report-manage}">投诉管理</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a>欢迎您：<span th:text="${#authentication.principal.username}">Administrator</span></a></li>
+                <li><a th:href="@{/logout}">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</html>
