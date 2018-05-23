@@ -2,16 +2,16 @@ debug: true
 
 server:
   port: 8080
-  context-path: /rest
+  context-path: /api
   domain: localhost
 
 spring:
   datasource:
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://101.200.59.121:3306/db_WeaDows?useSSL=false&useUnicode=true&characterEncoding=UTF-8
-      username: yyb
-      password: 'yyb'
+      url: jdbc:mysql://101.200.59.121:3306/heybro?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+      username: hechuan
+      password: 'hechuan'
       initial-size: 2
       max-active: 30
       min-idle: 2
@@ -26,10 +26,10 @@ spring:
       time-between-eviction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
       filters: stat, wall, slf4j
-      aop-patterns: com.WeaDows
+      aop-patterns: com.heybro
       stat-view-servlet:
-        login-username: WeaDows
-        login-password: WeaDows
+        login-username: heybro
+        login-password: heybro
   thymeleaf:
     cache: false
     mode: HTML
@@ -99,22 +99,22 @@ spring:
 #    # 支付通知回调地址
 #    notifyUrl:
 #
-#mybatis:
-#    type-aliases-package: com.WeaDows.entity
-#    mapper-locations: classpath:com/WeaDows/mapper/*.xml
-#
-#mapper:
-#    mappers:
-#        - tk.mybatis.mapper.common.Mapper
-#    not-empty: false
-#    identity: MYSQL
+mybatis:
+    type-aliases-package: com.heybro.entity
+    mapper-locations: classpath:com/heybro/mapper/*.xml
 
-#pagehelper:
-#    helperDialect: mysql
-#    reasonable: true
-#    supportMethodsArguments: true
-#    params: count=countSql
-#
-#logging:
-#  level:
-#    com.WeaDows: debug
+mapper:
+    mappers:
+        - tk.mybatis.mapper.common.Mapper
+    not-empty: false
+    identity: MYSQL
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+logging:
+  level:
+    com.heybro: debug
