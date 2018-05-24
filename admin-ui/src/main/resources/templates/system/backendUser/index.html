@@ -100,14 +100,14 @@
                         $tbody.append(
                             ' <tr class="even pointer">' +
                             '<td class="a-center ">' +
-                            ' <input type="checkbox" val="' + item.id + '" class="check_item" name="ckb"/>' +
+                            ' <input type="checkbox" val="' + item.info.id + '" class="check_item" name="ckb"/>' +
                             ' </td>' +
-                            '<td class=" ">' + item.id + '</td>' +
-                            '<td class=" ">' + item.username + '</td>' +
-                            '<td class=" ">' + item.name + '</td>' +
+                            '<td class=" ">' + item.info.id + '</td>' +
+                            '<td class=" ">' + item.info.username + '</td>' +
+                            '<td class=" ">' + item.info.name + '</td>' +
                             '<td class=" ">' + item.roleName + '</td>' +
-                            '<td class=" ">' + item.phone + '</td>' +
-                            '<td class=" "><a href="' + editUserUrl + '?id=' + item.id + '">编辑</a>&nbsp;</td>' +
+                            '<td class=" ">' + item.info.phone + '</td>' +
+                            '<td class=" "><a href="' + editUserUrl + '?id=' + item.info.id + '">编辑</a>&nbsp;</td>' +
                             '</tr>');
                     });
                     $("#pagination").bs_pagination({

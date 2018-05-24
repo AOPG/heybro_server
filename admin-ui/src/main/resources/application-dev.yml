@@ -40,6 +40,11 @@ spring:
         login-password: heybro
   thymeleaf:
     cache: false
+  data:
+    mongodb:
+      host: 101.200.59.121
+      port: 27017
+      database: heybro
 
 mybatis:
     type-aliases-package: com.heybro.entity

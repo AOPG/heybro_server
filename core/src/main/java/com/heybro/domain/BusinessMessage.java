@@ -12,7 +12,7 @@ public class BusinessMessage<T> {
 
     private String msg;
 
-    private Long count;
+    private Boolean success;
 
     private T data;
 

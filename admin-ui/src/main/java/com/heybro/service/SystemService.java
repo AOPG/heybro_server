@@ -53,12 +53,12 @@ public class SystemService {
      */
     public BusinessMessage<JSONObject> findPage(String userName, Integer page, Integer size) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
+        builder.success(false);
         try {
             PageHelper.startPage(page == null || page == 0 ? 1 : page, size == null ? 10 : size);
             Example example = new Example(ManageUser.class);
             if (!StringUtils.isEmpty(userName)) {
-                example.createCriteria().andLike("name", "%"+userName+"%");
+                example.createCriteria().andLike("username", "%"+userName+"%");
             }
             List<ManageUser> list = manageUserMapper.selectByExample(example);
             if (null != list && list.size() > 0) {
@@ -66,7 +66,7 @@ public class SystemService {
                 JSONObject json = JSON.parseObject(JSON.toJSONString(pageInfo));
                 JSONArray jsonArray = new JSONArray();
                 list.forEach(e -> {
-                    JSONObject item = (JSONObject)JSONObject.toJSON(e);
+                    JSONObject item = new JSONObject();
                     //获取角色ID
                     Example manageUserRoleExample = new Example(ManageUserRole.class);
                     manageUserRoleExample.createCriteria().andEqualTo("backenduserid", e.getId());
@@ -77,19 +77,20 @@ public class SystemService {
                         item.put("roleName", role.getName());
                         item.put("roleId", role.getId());
                     }
+                    item.put("info", e);
 
                     jsonArray.add(item);
                 });
                 json.put("list", jsonArray);
                 builder.data(json);
-                builder.count(pageInfo.getTotal());
-                builder.code("200");
+                builder.success(true);
+
             } else {
-                builder.msg("无数据，请检查条件是否正确");
+                builder.msg("该用户订单信息不存在，请重试");
                 builder.data(null);
             }
         } catch (Exception e) {
-            log.error("查询用户出错:" + e);
+            log.error("该用户查询订单失败:" + e);
         }
         return builder.build();
     }
@@ -97,7 +98,7 @@ public class SystemService {
     @Transactional
     public BusinessMessage<JSONObject> deleteUser(String ids) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
+        builder.success(false);
         try {
             String[] idsS = ids.split(",");
             List<Integer> listIds = new ArrayList<>();
@@ -114,7 +115,7 @@ public class SystemService {
             manageUserRoleExample.createCriteria().andIn("backenduserid",listIds);
             manageUserRoleMapper.deleteByExample(manageUserRoleExample);
             builder.msg("删除成功");
-            builder.code("200");
+            builder.success(true);
         } catch (Exception e) {
             log.error("删除人员失败", e);
             builder.msg("删除失败");
@@ -125,7 +126,7 @@ public class SystemService {
     @Transactional
     public BusinessMessage<JSONObject> doAddUser(ManageUserDTO manageUserDTO) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
+        builder.success(false);
         try {
             ManageUser manageUser = new ManageUser();
             BeanUtils.copyProperties(manageUserDTO, manageUser);
@@ -144,7 +145,7 @@ public class SystemService {
             }
 
             builder.msg("添加人员成功");
-            builder.code("200");
+            builder.success(true);
         } catch (Exception e) {
             log.error("添加人员失败", e);
             builder.msg("添加人员失败，请重试");
@@ -155,7 +156,7 @@ public class SystemService {
     @Transactional
     public BusinessMessage<JSONObject> doEditUser(ManageUserDTO manageUserDTO) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
+        builder.success(false);
         try {
             ManageUser manageUser = manageUserMapper.selectByPrimaryKey(manageUserDTO.getId());
             manageUser.setName(manageUserDTO.getName());
@@ -174,7 +175,7 @@ public class SystemService {
             manageUserRoleMapper.updateByPrimaryKey(manageUserRole);
 
             builder.msg("修改成功");
-            builder.code("200");
+            builder.success(true);
         } catch (Exception e) {
             log.error("修改人员失败", e);
             builder.msg("修改人员失败,请重试");
@@ -184,7 +185,7 @@ public class SystemService {
 
     public BusinessMessage<JSONObject> findBackendById(Integer id) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
+        builder.success(false);
         try {
             ManageUser manageUser = manageUserMapper.selectByPrimaryKey(id);
             ManageUserDTO manageUserDTO = new ManageUserDTO();
@@ -204,7 +205,7 @@ public class SystemService {
             JSONObject data = new JSONObject();
             data.put("info", manageUserDTO);
             builder.data(data);
-            builder.code("200");
+            builder.success(true);
         } catch (Exception e) {
             log.error("查询人员失败", e);
             builder.msg("查询失败请重试");
@@ -214,13 +215,13 @@ public class SystemService {
 
     public BusinessMessage<JSONObject> restoreLoginPwd(Integer id) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
+        builder.success(false);
         try {
             ManageUser backendUser = manageUserMapper.selectByPrimaryKey(id);
             backendUser.setPassword(passwordEncoder.encode("888888"));
             manageUserMapper.updateByPrimaryKeySelective(backendUser);
             builder.msg("密码重置成功，密码888888");
-            builder.code("200");
+            builder.success(true);
         } catch (Exception e) {
             log.error("密码重置失败", e);
             builder.msg("密码重置失败，请重试");
@@ -230,7 +231,7 @@ public class SystemService {
 
     public BusinessMessage<JSONObject> indexRoleSearch(String role, Integer page, Integer size) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
+        builder.success(false);
         try {
             PageHelper.startPage(page == null || page == 0 ? 1 : page, size == null ? 10 : size);
             Example example = new Example(ManageRole.class);
@@ -249,8 +250,7 @@ public class SystemService {
                 });
                 json.put("list", jsonArray);
                 builder.data(json);
-                builder.code("200");
-                builder.code("200");
+                builder.success(true);
             } else {
                 builder.msg("读取失败，请重试");
                 builder.data(null);
@@ -263,11 +263,11 @@ public class SystemService {
 
     public BusinessMessage<JSONObject> doAddRole(ManageRole role) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
+        builder.success(false);
         try {
             manageRoleMapper.insert(role);
             builder.msg("添加角色成功");
-            builder.code("200");
+            builder.success(true);
         } catch (Exception e) {
             log.error("添加角色失败", e);
             builder.msg("添加角色失败，请重试");
@@ -277,11 +277,11 @@ public class SystemService {
 
     public BusinessMessage<JSONObject> doEditRole(ManageRole role) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
+        builder.success(false);
         try {
             manageRoleMapper.updateByPrimaryKeySelective(role);
             builder.msg("修改角色成功");
-            builder.code("200");
+            builder.success(true);
         } catch (Exception e) {
             log.error("修改角色失败", e);
             builder.msg("修改角色失败，请重试");
@@ -292,7 +292,7 @@ public class SystemService {
     @Transactional
     public BusinessMessage<JSONObject> deleteRole(String ids) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
+        builder.success(false);
         try {
             String[] idsS = ids.split(",");
             List<Integer> listIds = new ArrayList<>();
@@ -308,7 +308,7 @@ public class SystemService {
             menuRoleExample.createCriteria().andIn("roleid",listIds);
             manageMenuRoleMapper.deleteByExample(menuRoleExample);
             builder.msg("删除角色成功");
-            builder.code("200");
+            builder.success(true);
         } catch (Exception e) {
             log.error("刪除角色失败", e);
             builder.msg("刪除角色失败");
@@ -318,12 +318,12 @@ public class SystemService {
 
     public BusinessMessage<JSONObject> findRoleById(Integer id) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
+        builder.success(false);
         try {
             JSONObject data = new JSONObject();
             data.put("info", manageRoleMapper.selectByPrimaryKey(id));
             builder.data(data);
-            builder.code("200");
+            builder.success(true);
         } catch (Exception e) {
             log.error("查询角色失败", e);
             builder.msg("查询角色失败,请重试");
@@ -334,7 +334,7 @@ public class SystemService {
     @Transactional
     public BusinessMessage<JSONObject> authorization(Integer roleId, String menuIds) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
+        builder.success(false);
         try {
             //判断该角色是否存在
             if (manageRoleMapper.selectByPrimaryKey(roleId) == null) {
@@ -368,7 +368,7 @@ public class SystemService {
 
     public BusinessMessage<JSONObject> getMenuTree() {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
+        builder.success(false);
         try {
             Example example = new Example(ManageMenu.class);
             example.setOrderByClause("sortNo");
@@ -376,7 +376,7 @@ public class SystemService {
             JSONObject data = new JSONObject();
             data.put("tree", lists);
             builder.data(data);
-            builder.code("200");
+            builder.success(true);
         } catch (Exception e) {
             log.error("获取菜单失败");
             builder.msg("获取菜单失败,请重试");
@@ -386,40 +386,22 @@ public class SystemService {
 
     public BusinessMessage<JSONObject> getAuthByRoleId(Integer roleId) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
+        builder.success(false);
         try {
             Example menuRoleExample = new Example(ManageMenuRole.class);
             menuRoleExample.createCriteria().andEqualTo("roleid",roleId);
             JSONObject data = new JSONObject();
             data.put("tree", manageMenuRoleMapper.selectByExample(menuRoleExample));
             builder.data(data);
-            builder.code("200");
+            builder.success(true);
         } catch (Exception e) {
             log.error("查询权限失败", e);
             builder.msg("查询权限失败，请重试");
         }
         return builder.build();
     }
-    /**
-     * 获取所有职务信息
-     * */
-    public BusinessMessage<JSONObject> findRoleInfo() {
-        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.code("500");
-        try{
-            Example manageRoleExe = new Example(ManageRole.class);
-            manageRoleExe.createCriteria();
-            List<ManageRole> list = manageRoleMapper.selectByExample(manageRoleExe);
-            JSONObject data = new JSONObject();
-            data.put("list",list);
-            builder.data(data);
-            builder.msg("查询成功!");
-            builder.code("200");
-        }catch(Exception e){
-            log.error("查询信息失败", e);
-            builder.msg("查询信息失败，请重试");
-        }
-        return builder.build();
 
+    public BusinessMessage<JSONObject> findRoleInfo() {
+        return null;
     }
 }

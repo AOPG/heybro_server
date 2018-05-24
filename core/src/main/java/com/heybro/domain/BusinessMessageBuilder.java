@@ -8,11 +8,11 @@ public class BusinessMessageBuilder<T> {
     private BusinessMessage<T> message = new BusinessMessage<>();
 
     public BusinessMessageBuilder() {
-        this.message.setCount(0L);
+        this.message.setSuccess(false);
     }
 
-    public BusinessMessageBuilder(Long count) {
-        this.message.setCount(count);
+    public BusinessMessageBuilder(Boolean success) {
+        this.message.setSuccess(success);
     }
 
     public BusinessMessageBuilder<T> code(String code) {
@@ -21,8 +21,8 @@ public class BusinessMessageBuilder<T> {
         return this;
     }
 
-    public BusinessMessageBuilder<T> count(Long count) {
-        this.message.setCount(count);
+    public BusinessMessageBuilder<T> success(Boolean success) {
+        this.message.setSuccess(success);
 
         return this;
     }

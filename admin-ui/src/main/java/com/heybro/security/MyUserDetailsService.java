@@ -49,7 +49,7 @@ public class MyUserDetailsService implements UserDetailsService {
                 userDetails = new LoginUser(user, 10, menu);
             }
         } catch (Exception e) {
-            log.error("查询用户失败, 帐号 {}，{}", username, e.getMessage());
+            //log.error("查询用户失败, 帐号 {}，{}", username, e.getMessage());
         }
 
         if (userDetails == null) {
@@ -114,13 +114,13 @@ public class MyUserDetailsService implements UserDetailsService {
                     }
                     return menusb.toString();
                 } else {
-                    log.error("当前用户没有菜单,{}", id);
+                    //log.error("当前用户没有菜单,{}", id);
                 }
             } else {
-                log.error("当前用户没有角色,{}", id);
+                //log.error("当前用户没有角色,{}", id);
             }
         } catch (Exception e) {
-            log.error("获取菜单失败", e);
+            //log.error("获取菜单失败", e);
         }
         return "";
     }
