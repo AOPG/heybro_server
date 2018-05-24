@@ -2,7 +2,7 @@ debug: true
 
 server:
   port: 8080
-  context-path: /api
+  context-path: /android
   domain: localhost
 
 spring:
@@ -64,7 +64,7 @@ spring:
 #    #短信模版第一个为注册，第二个为找回密码，第三个为修改重要信息（顺序不可以改变）
 #    template-code: 'SMS_76595733,SMS_76595732,SMS_76595731'
 #    # 短信签名，传入的短信签名必须是在短信服务“短信服务-短信签名”中的可用签名。如“短信服务”已在短信签名中通过审核，则可传入”短信服务“（传参时去掉引号）作为短信签名。短信效果示例：【短信服务】欢迎使用短信服务服务。
-#    sign-name: '云易邦'
+#    sign-name: ''
 #    # 有效期，单位为秒
 #    expire-time: 600
 #    # 重发间，单位微妙

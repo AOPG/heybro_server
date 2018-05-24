@@ -23,8 +23,6 @@ import java.time.ZonedDateTime;
 
 /**
  * 图片服务
- * <p>
- * Created by vito on 2017/7/17.
  */
 @Slf4j
 @Service
@@ -60,7 +58,7 @@ public class ImgServiceImpl {
         try {
                 //获取文件全名
                 String fileId = this.saveImg(image_data);
-                String serverImgFront = "/rest/api/img/show?id=" + fileId;
+                String serverImgFront = "/android/api/img/show?id=" + fileId;
                 JSONObject data = new JSONObject();
                 data.put("imgUrl", serverImgFront);
                 builder.data(data);
@@ -117,7 +115,7 @@ public class ImgServiceImpl {
             //校验文件
             gridFSFile.validate();
             String serverImgId = gridFSFile.getId().toString();
-            String serverImgFront = "/rest/api/img/show?id=" + serverImgId;
+            String serverImgFront = "/android/api/img/show?id=" + serverImgId;
             JSONObject data = new JSONObject();
             data.put("imgUrl", serverImgFront);
             builder.data(data);
@@ -145,7 +143,7 @@ public class ImgServiceImpl {
             //校验文件
             gridFSFile.validate();
             String fileId = gridFSFile.getId().toString();
-            String serverImgFront = "/rest/api/img/show?id=" + fileId;
+            String serverImgFront = "/android/api/img/show?id=" + fileId;
             JSONObject data = new JSONObject();
             data.put("imgUrl", serverImgFront);
             builder.data(data);
