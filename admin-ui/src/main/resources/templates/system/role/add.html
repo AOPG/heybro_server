@@ -63,7 +63,7 @@
                     data: $("#form_save").serialize()
                 }).then(function (res) {
                     if (res.success) {
-                        alertAndTurn(res.msg,1,baseUrl+"system/role");
+                        alertAndTurn(res.msg,1,baseUrl+"role");
                     } else {
                         layer.msg(res.msg, {icon: 2});
                     }
