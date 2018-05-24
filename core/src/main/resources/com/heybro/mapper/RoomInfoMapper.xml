@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.RoomInfoMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.RoomInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="room_info_id" jdbcType="INTEGER" property="roomInfoId" />
+    <result column="room_id" jdbcType="INTEGER" property="roomId" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="team" jdbcType="VARCHAR" property="team" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    room_info_id, room_id, user_code, team, position, result
+  </sql>
+</mapper>

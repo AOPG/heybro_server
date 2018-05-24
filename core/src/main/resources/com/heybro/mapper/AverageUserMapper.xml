@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.AverageUserMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.AverageUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_pass" jdbcType="VARCHAR" property="userPass" />
+    <result column="user_sex" jdbcType="VARCHAR" property="userSex" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_mail" jdbcType="VARCHAR" property="userMail" />
+    <result column="user_ Intro" jdbcType="VARCHAR" property="userIntro" />
+    <result column="user_ portrait" jdbcType="VARCHAR" property="userPortrait" />
+    <result column="user_ signature" jdbcType="VARCHAR" property="userSignature" />
+    <result column="homepage_back" jdbcType="VARCHAR" property="homepageBack" />
+    <result column="user_grade" jdbcType="INTEGER" property="userGrade" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    user_id, user_code, user_name, user_pass, user_sex, user_phone, user_mail, `user_ Intro`, 
+    `user_ portrait`, `user_ signature`, homepage_back, user_grade
+  </sql>
+</mapper>

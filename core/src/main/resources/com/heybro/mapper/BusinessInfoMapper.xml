@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.BusinessInfoMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.BusinessInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="bus_info_id" jdbcType="INTEGER" property="busInfoId" />
+    <result column="bus_code" jdbcType="VARCHAR" property="busCode" />
+    <result column="goods_code" jdbcType="VARCHAR" property="goodsCode" />
+    <result column="sell" jdbcType="INTEGER" property="sell" />
+    <result column="high_option" jdbcType="INTEGER" property="highOption" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    bus_info_id, bus_code, goods_code, sell, high_option
+  </sql>
+</mapper>

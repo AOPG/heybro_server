@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.UserInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="user_info_Id" jdbcType="INTEGER" property="userInfoId" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="gold" jdbcType="INTEGER" property="gold" />
+    <result column="total_field" jdbcType="INTEGER" property="totalField" />
+    <result column="win" jdbcType="INTEGER" property="win" />
+    <result column="winning" jdbcType="DOUBLE" property="winning" />
+    <result column="room_id" jdbcType="INTEGER" property="roomId" />
+    <result column="position1" jdbcType="VARCHAR" property="position1" />
+    <result column="position2" jdbcType="VARCHAR" property="position2" />
+    <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+    <result column="qr_code" jdbcType="VARCHAR" property="qrCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    user_info_Id, user_code, nick_name, gold, total_field, win, winning, room_id, position1, 
+    position2, user_address, qr_code
+  </sql>
+</mapper>

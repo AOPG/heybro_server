@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.BasketInfoMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.BasketInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="basket_info_Id" jdbcType="INTEGER" property="basketInfoId" />
+    <result column="info_name" jdbcType="VARCHAR" property="infoName" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.heybro.entity.BasketInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="info_content" jdbcType="LONGVARCHAR" property="infoContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    basket_info_Id, info_name
+  </sql>
+  <sql id="Blob_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    info_content
+  </sql>
+</mapper>
