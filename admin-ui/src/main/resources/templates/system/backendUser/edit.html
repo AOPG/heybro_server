@@ -65,7 +65,7 @@
                                         姓名 *
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input id="realname" name="realname" class="form-control col-md-7 col-xs-12"
+                                        <input id="name" name="name" class="form-control col-md-7 col-xs-12"
                                                required="required" data-error="姓名不能为空！"/>
                                     </div>
                                 </div>
@@ -132,7 +132,7 @@
                             }
                         }
                     },
-                    realname: {
+                    name: {
                         validators: {
                             notEmpty: {
                                 message: '姓名不能为空'
@@ -166,7 +166,7 @@
                     console.log(result);
                     if (result.success) {
                         $("#username").val(result.data.info.username);
-                        $("#realname").val(result.data.info.realname);
+                        $("#name").val(result.data.info.name);
                         $("#phone").val(result.data.info.phone);
                         $("#roleId").val(result.data.info.roleId);
                         $("#h_id").val(result.data.info.id);
