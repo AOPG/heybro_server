@@ -18,12 +18,15 @@
     <result column="room_lng" jdbcType="VARCHAR" property="roomLng" />
     <result column="room_lat" jdbcType="VARCHAR" property="roomLat" />
     <result column="master_code" jdbcType="VARCHAR" property="masterCode" />
+    <result column="room_city" jdbcType="VARCHAR" property="roomCity" />
+    <result column="room_province" jdbcType="VARCHAR" property="roomProvince" />
+    <result column="room_area" jdbcType="VARCHAR" property="roomArea" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
       WARNING - @mbg.generated
     -->
     room_Id, room_name, room_num, room_type, room_date, room_info_id, win_lose, room_pass_set, 
-    room_pass, room_peo, room_lng, room_lat, master_code
+    room_pass, room_peo, room_lng, room_lat, master_code, room_city, room_province, room_area
   </sql>
 </mapper>

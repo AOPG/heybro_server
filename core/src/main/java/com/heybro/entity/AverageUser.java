@@ -78,11 +78,35 @@ public class AverageUser implements Serializable {
     @Column(name = "user_grade")
     private Integer userGrade;
 
+    /**
+     * 用户经度
+     */
     @Column(name = "user_lng")
     private String userLng;
 
+    /**
+     * 用户维度
+     */
     @Column(name = "user_lat")
     private String userLat;
+
+    /**
+     * 用户所在城市
+     */
+    @Column(name = "user_city")
+    private String userCity;
+
+    /**
+     * 用户所在市
+     */
+    @Column(name = "user_province")
+    private String userProvince;
+
+    /**
+     * 用户所在区
+     */
+    @Column(name = "user_area")
+    private String userArea;
 
     private static final long serialVersionUID = 1L;
 
@@ -303,31 +327,93 @@ public class AverageUser implements Serializable {
     }
 
     /**
-     * @return user_lng
+     * 获取用户经度
+     *
+     * @return user_lng - 用户经度
      */
     public String getUserLng() {
         return userLng;
     }
 
     /**
-     * @param userLng
+     * 设置用户经度
+     *
+     * @param userLng 用户经度
      */
     public void setUserLng(String userLng) {
         this.userLng = userLng == null ? null : userLng.trim();
     }
 
     /**
-     * @return user_lat
+     * 获取用户维度
+     *
+     * @return user_lat - 用户维度
      */
     public String getUserLat() {
         return userLat;
     }
 
     /**
-     * @param userLat
+     * 设置用户维度
+     *
+     * @param userLat 用户维度
      */
     public void setUserLat(String userLat) {
         this.userLat = userLat == null ? null : userLat.trim();
+    }
+
+    /**
+     * 获取用户所在城市
+     *
+     * @return user_city - 用户所在城市
+     */
+    public String getUserCity() {
+        return userCity;
+    }
+
+    /**
+     * 设置用户所在城市
+     *
+     * @param userCity 用户所在城市
+     */
+    public void setUserCity(String userCity) {
+        this.userCity = userCity == null ? null : userCity.trim();
+    }
+
+    /**
+     * 获取用户所在市
+     *
+     * @return user_province - 用户所在市
+     */
+    public String getUserProvince() {
+        return userProvince;
+    }
+
+    /**
+     * 设置用户所在市
+     *
+     * @param userProvince 用户所在市
+     */
+    public void setUserProvince(String userProvince) {
+        this.userProvince = userProvince == null ? null : userProvince.trim();
+    }
+
+    /**
+     * 获取用户所在区
+     *
+     * @return user_area - 用户所在区
+     */
+    public String getUserArea() {
+        return userArea;
+    }
+
+    /**
+     * 设置用户所在区
+     *
+     * @param userArea 用户所在区
+     */
+    public void setUserArea(String userArea) {
+        this.userArea = userArea == null ? null : userArea.trim();
     }
 
     @Override
@@ -350,6 +436,9 @@ public class AverageUser implements Serializable {
         sb.append(", userGrade=").append(userGrade);
         sb.append(", userLng=").append(userLng);
         sb.append(", userLat=").append(userLat);
+        sb.append(", userCity=").append(userCity);
+        sb.append(", userProvince=").append(userProvince);
+        sb.append(", userArea=").append(userArea);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

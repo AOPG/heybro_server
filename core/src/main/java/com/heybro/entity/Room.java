@@ -84,6 +84,24 @@ public class Room implements Serializable {
     @Column(name = "master_code")
     private String masterCode;
 
+    /**
+     * 房间所在城市
+     */
+    @Column(name = "room_city")
+    private String roomCity;
+
+    /**
+     * 房间所在省
+     */
+    @Column(name = "room_province")
+    private String roomProvince;
+
+    /**
+     * 房间所在区
+     */
+    @Column(name = "room_area")
+    private String roomArea;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -320,6 +338,60 @@ public class Room implements Serializable {
         this.masterCode = masterCode == null ? null : masterCode.trim();
     }
 
+    /**
+     * 获取房间所在城市
+     *
+     * @return room_city - 房间所在城市
+     */
+    public String getRoomCity() {
+        return roomCity;
+    }
+
+    /**
+     * 设置房间所在城市
+     *
+     * @param roomCity 房间所在城市
+     */
+    public void setRoomCity(String roomCity) {
+        this.roomCity = roomCity == null ? null : roomCity.trim();
+    }
+
+    /**
+     * 获取房间所在省
+     *
+     * @return room_province - 房间所在省
+     */
+    public String getRoomProvince() {
+        return roomProvince;
+    }
+
+    /**
+     * 设置房间所在省
+     *
+     * @param roomProvince 房间所在省
+     */
+    public void setRoomProvince(String roomProvince) {
+        this.roomProvince = roomProvince == null ? null : roomProvince.trim();
+    }
+
+    /**
+     * 获取房间所在区
+     *
+     * @return room_area - 房间所在区
+     */
+    public String getRoomArea() {
+        return roomArea;
+    }
+
+    /**
+     * 设置房间所在区
+     *
+     * @param roomArea 房间所在区
+     */
+    public void setRoomArea(String roomArea) {
+        this.roomArea = roomArea == null ? null : roomArea.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -339,6 +411,9 @@ public class Room implements Serializable {
         sb.append(", roomLng=").append(roomLng);
         sb.append(", roomLat=").append(roomLat);
         sb.append(", masterCode=").append(masterCode);
+        sb.append(", roomCity=").append(roomCity);
+        sb.append(", roomProvince=").append(roomProvince);
+        sb.append(", roomArea=").append(roomArea);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
