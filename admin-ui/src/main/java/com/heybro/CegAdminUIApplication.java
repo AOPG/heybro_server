@@ -9,8 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.heybro.mapper")
 public class CegAdminUIApplication {
 
-    public static void main(String[] args) {
-
-        SpringApplication.run(CegAdminUIApplication.class, args);
+    public static void main(String[] args) { SpringApplication.run(CegAdminUIApplication.class, args);
     }
 }
