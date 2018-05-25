@@ -78,6 +78,12 @@ public class AverageUser implements Serializable {
     @Column(name = "user_grade")
     private Integer userGrade;
 
+    @Column(name = "user_lng")
+    private String userLng;
+
+    @Column(name = "user_lat")
+    private String userLat;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -296,6 +302,34 @@ public class AverageUser implements Serializable {
         this.userGrade = userGrade;
     }
 
+    /**
+     * @return user_lng
+     */
+    public String getUserLng() {
+        return userLng;
+    }
+
+    /**
+     * @param userLng
+     */
+    public void setUserLng(String userLng) {
+        this.userLng = userLng == null ? null : userLng.trim();
+    }
+
+    /**
+     * @return user_lat
+     */
+    public String getUserLat() {
+        return userLat;
+    }
+
+    /**
+     * @param userLat
+     */
+    public void setUserLat(String userLat) {
+        this.userLat = userLat == null ? null : userLat.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -314,6 +348,8 @@ public class AverageUser implements Serializable {
         sb.append(", userSignature=").append(userSignature);
         sb.append(", homepageBack=").append(homepageBack);
         sb.append(", userGrade=").append(userGrade);
+        sb.append(", userLng=").append(userLng);
+        sb.append(", userLat=").append(userLat);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

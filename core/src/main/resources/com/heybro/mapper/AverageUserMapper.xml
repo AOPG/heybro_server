@@ -17,12 +17,14 @@
     <result column="user_ signature" jdbcType="VARCHAR" property="userSignature" />
     <result column="homepage_back" jdbcType="VARCHAR" property="homepageBack" />
     <result column="user_grade" jdbcType="INTEGER" property="userGrade" />
+    <result column="user_lng" jdbcType="VARCHAR" property="userLng" />
+    <result column="user_lat" jdbcType="VARCHAR" property="userLat" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
       WARNING - @mbg.generated
     -->
     user_id, user_code, user_name, user_pass, user_sex, user_phone, user_mail, `user_ Intro`, 
-    `user_ portrait`, `user_ signature`, homepage_back, user_grade
+    `user_ portrait`, `user_ signature`, homepage_back, user_grade, user_lng, user_lat
   </sql>
 </mapper>

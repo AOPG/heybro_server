@@ -69,12 +69,14 @@ public class Room implements Serializable {
     /**
      * 经度
      */
-    private String long;
+    @Column(name = "room_lng")
+    private String roomLng;
 
     /**
      * 纬度
      */
-    private String lat;
+    @Column(name = "room_lat")
+    private String roomLat;
 
     /**
      * 房主编码
@@ -267,37 +269,37 @@ public class Room implements Serializable {
     /**
      * 获取经度
      *
-     * @return long - 经度
+     * @return room_lng - 经度
      */
-    public String getLong() {
-        return long;
+    public String getRoomLng() {
+        return roomLng;
     }
 
     /**
      * 设置经度
      *
-     * @param long 经度
+     * @param roomLng 经度
      */
-    public void setLong(String long) {
-        this.long = long == null ? null : long.trim();
+    public void setRoomLng(String roomLng) {
+        this.roomLng = roomLng == null ? null : roomLng.trim();
     }
 
     /**
      * 获取纬度
      *
-     * @return lat - 纬度
+     * @return room_lat - 纬度
      */
-    public String getLat() {
-        return lat;
+    public String getRoomLat() {
+        return roomLat;
     }
 
     /**
      * 设置纬度
      *
-     * @param lat 纬度
+     * @param roomLat 纬度
      */
-    public void setLat(String lat) {
-        this.lat = lat == null ? null : lat.trim();
+    public void setRoomLat(String roomLat) {
+        this.roomLat = roomLat == null ? null : roomLat.trim();
     }
 
     /**
@@ -334,8 +336,8 @@ public class Room implements Serializable {
         sb.append(", roomPassSet=").append(roomPassSet);
         sb.append(", roomPass=").append(roomPass);
         sb.append(", roomPeo=").append(roomPeo);
-        sb.append(", long=").append(long);
-        sb.append(", lat=").append(lat);
+        sb.append(", roomLng=").append(roomLng);
+        sb.append(", roomLat=").append(roomLat);
         sb.append(", masterCode=").append(masterCode);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
