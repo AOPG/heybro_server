@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Created by SongpoLiu on 2017/5/28.
+ */
 @Slf4j
 @Service
 public class MyUserDetailsService implements UserDetailsService {
@@ -49,7 +52,7 @@ public class MyUserDetailsService implements UserDetailsService {
                 userDetails = new LoginUser(user, 10, menu);
             }
         } catch (Exception e) {
-            //log.error("查询用户失败, 帐号 {}，{}", username, e.getMessage());
+            log.error("查询用户失败, 帐号 {}，{}", username, e.getMessage());
         }
 
         if (userDetails == null) {
@@ -96,16 +99,17 @@ public class MyUserDetailsService implements UserDetailsService {
                             .collect(Collectors.toList());
                     StringBuffer menusb = new StringBuffer();
                     for (ManageMenu menu : firstMenus) {
-                        menusb.append("<li><a class=\"dropmenu\" href=\"#\"><i class=\""+menu.getIcon()+"\"></i>&nbsp;&nbsp;<span class=\"hidden-tablet\">" + menu.getName() + "</span></a>");
+                        menusb.append("<li><a><i class=\"fa fa-edit\"></i> " + menu.getName() + " <span class=\"fa fa-chevron-down\"></span></a>");
+
                         //一级菜单下的所有二级菜单
                         List<ManageMenu> twoMenus = menus.stream()
                                 .filter(twoMenu -> menu.getId() == twoMenu.getPid())
                                 .collect(Collectors.toList());
                         if(twoMenus!=null && twoMenus.size()>0){
-                            menusb.append("<ul>");
+                            menusb.append("<ul class=\"nav child_menu\">");
                         }
                         for (ManageMenu twoMenu : twoMenus) {
-                            menusb.append("<li><a class=\"submenu\" href=\"" + twoMenu.getUrl() + "\"><i class=\""+twoMenu.getIcon()+"\"></i>&nbsp;&nbsp;<span class=\"hidden-tablet\">"+twoMenu.getName()+"</span></a></li>");
+                            menusb.append("<li><a href=\"" + twoMenu.getUrl() + "\">" + twoMenu.getName() + "</a></li>");
                         }
                         if(twoMenus!=null && twoMenus.size()>0){
                             menusb.append("</ul>");
@@ -114,13 +118,13 @@ public class MyUserDetailsService implements UserDetailsService {
                     }
                     return menusb.toString();
                 } else {
-                    //log.error("当前用户没有菜单,{}", id);
+                    log.error("当前用户没有菜单,{}", id);
                 }
             } else {
-                //log.error("当前用户没有角色,{}", id);
+                log.error("当前用户没有角色,{}", id);
             }
         } catch (Exception e) {
-            //log.error("获取菜单失败", e);
+            log.error("获取菜单失败", e);
         }
         return "";
     }

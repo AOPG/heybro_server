@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.VideoCooperateMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.VideoCooperate">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="video_coop_id" jdbcType="INTEGER" property="videoCoopId" />
+    <result column="video_coop_name" jdbcType="VARCHAR" property="videoCoopName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    video_coop_id, video_coop_name
+  </sql>
+</mapper>

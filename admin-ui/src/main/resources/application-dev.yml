@@ -2,6 +2,7 @@ debug: true
 
 server:
   port: 8080
+  context-path: /manager
 
 spring:
   # AOP 配置
@@ -45,6 +46,8 @@ spring:
       host: 101.200.59.121
       port: 27017
       database: heybro
+      username: wangweijian
+      password: "wangweijian"
 
 mybatis:
     type-aliases-package: com.heybro.entity

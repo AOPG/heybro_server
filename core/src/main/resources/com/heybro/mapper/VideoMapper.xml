@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.VideoMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.Video">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="video_id" jdbcType="INTEGER" property="videoId" />
+    <result column="video_code" jdbcType="VARCHAR" property="videoCode" />
+    <result column="video_name" jdbcType="VARCHAR" property="videoName" />
+    <result column="video_time" jdbcType="TIMESTAMP" property="videoTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    video_id, video_code, video_name, video_time
+  </sql>
+</mapper>

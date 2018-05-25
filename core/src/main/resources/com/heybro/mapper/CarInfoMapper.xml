@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.CarInfoMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.CarInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="car_info_id" jdbcType="INTEGER" property="carInfoId" />
+    <result column="car_id" jdbcType="INTEGER" property="carId" />
+    <result column="goods_code" jdbcType="VARCHAR" property="goodsCode" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    car_info_id, car_id, goods_code, number, amount
+  </sql>
+</mapper>

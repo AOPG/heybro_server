@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.RoomMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.Room">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="room_Id" jdbcType="INTEGER" property="roomId" />
+    <result column="room_name" jdbcType="VARCHAR" property="roomName" />
+    <result column="room_num" jdbcType="INTEGER" property="roomNum" />
+    <result column="room_type" jdbcType="INTEGER" property="roomType" />
+    <result column="room_date" jdbcType="TIMESTAMP" property="roomDate" />
+    <result column="room_info_id" jdbcType="INTEGER" property="roomInfoId" />
+    <result column="win_lose" jdbcType="VARCHAR" property="winLose" />
+    <result column="room_pass_set" jdbcType="INTEGER" property="roomPassSet" />
+    <result column="room_pass" jdbcType="VARCHAR" property="roomPass" />
+    <result column="room_peo" jdbcType="INTEGER" property="roomPeo" />
+    <result column="long" jdbcType="VARCHAR" property="long" />
+    <result column="lat" jdbcType="VARCHAR" property="lat" />
+    <result column="master_code" jdbcType="VARCHAR" property="masterCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    room_Id, room_name, room_num, room_type, room_date, room_info_id, win_lose, room_pass_set, 
+    room_pass, room_peo, long, lat, master_code
+  </sql>
+</mapper>

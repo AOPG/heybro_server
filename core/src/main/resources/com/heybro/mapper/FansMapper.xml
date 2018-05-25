@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.FansMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.Fans">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="fans_Id" jdbcType="INTEGER" property="fansId" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="user_fans_code" jdbcType="VARCHAR" property="userFansCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    fans_Id, user_code, user_fans_code
+  </sql>
+</mapper>

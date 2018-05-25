@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.CooperateMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.Cooperate">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="coop_id" jdbcType="INTEGER" property="coopId" />
+    <result column="coop_name" jdbcType="VARCHAR" property="coopName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    coop_id, coop_name
+  </sql>
+</mapper>

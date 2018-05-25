@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.DynamicImgMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.DynamicImg">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="dyn_img_Id" jdbcType="INTEGER" property="dynImgId" />
+    <result column="dyn_id" jdbcType="INTEGER" property="dynId" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    dyn_img_Id, dyn_id, path
+  </sql>
+</mapper>

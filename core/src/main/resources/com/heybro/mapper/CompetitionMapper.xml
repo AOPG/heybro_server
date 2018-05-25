@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.CompetitionMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.Competition">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="comp_Id" jdbcType="INTEGER" property="compId" />
+    <result column="comp_name" jdbcType="VARCHAR" property="compName" />
+    <result column="win_team" jdbcType="VARCHAR" property="winTeam" />
+    <result column="comp_date" jdbcType="TIMESTAMP" property="compDate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.heybro.entity.Competition">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="comp_remark" jdbcType="LONGVARCHAR" property="compRemark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    comp_Id, comp_name, win_team, comp_date
+  </sql>
+  <sql id="Blob_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    comp_remark
+  </sql>
+</mapper>

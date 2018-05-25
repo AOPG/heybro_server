@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.RemarkMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.Remark">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="remark_id" jdbcType="INTEGER" property="remarkId" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="remark_date" jdbcType="TIMESTAMP" property="remarkDate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.heybro.entity.Remark">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="remark_info" jdbcType="LONGVARCHAR" property="remarkInfo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    remark_id, user_code, remark_date
+  </sql>
+  <sql id="Blob_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    remark_info
+  </sql>
+</mapper>

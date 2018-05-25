@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heybro.mapper.ConcernMapper">
+  <resultMap id="BaseResultMap" type="com.heybro.entity.Concern">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="concern_Id" jdbcType="INTEGER" property="concernId" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="user_concern_code" jdbcType="VARCHAR" property="userConcernCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    concern_Id, user_code, user_concern_code
+  </sql>
+</mapper>
