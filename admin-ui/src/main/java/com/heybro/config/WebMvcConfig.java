@@ -28,6 +28,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         //授权管理
         registry.addViewController("/authorization").setViewName("system/authorization/index");
         registry.addViewController("/index").setViewName("index");
+
+
         //篮球信息管理-竞猜管理
         registry.addViewController("/guess").setViewName("baseManege/basketInfo/index");
         //篮球信息管理-篮球资讯管理
@@ -36,6 +38,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/competition").setViewName("baseManege/guess/index");
         //篮球信息管理-篮球视频管理
         registry.addViewController("/video").setViewName("baseManege/video/index");
+
+
         //商家管理-商家信息管理
         registry.addViewController("/business").setViewName("businessManage/business/index");
         //商家管理-商品管理
@@ -44,16 +48,24 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/car").setViewName("businessManage/car/index");
         //商品管理-订单管理
         registry.addViewController("/order").setViewName("businessManage/order/index");
+
+
         //用户管理-普通用户管理
         registry.addViewController("/averageUser").setViewName("userManage/averageUser/index");
         //用户管理-消息管理
         registry.addViewController("/massage").setViewName("userManage/massage/index");
         //用户管理-动态管理
-        registry.addViewController("/comment").setViewName("userManage/comment/index");
+        registry.addViewController("/dynamic").setViewName("userManage/dynamic/index");
         //用户管理-历史记录管理
         registry.addViewController("/history").setViewName("userManage/history/index");
         //用户管理-房间管理
         registry.addViewController("/room").setViewName("userManage/room/index");
+        //用户管理-粉丝管理
+        registry.addViewController("/fans").setViewName("userManage/fans/index");
+        //用户管理-关注管理
+        registry.addViewController("/concern").setViewName("userManage/concern/index");
+
+
         //合作方管理-场地合作方管理
         registry.addViewController("/cooperate").setViewName("cooperateManage/cooperate/index");
         //合作方管理-场地管理
