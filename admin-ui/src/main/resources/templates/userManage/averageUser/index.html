@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="zh-CN" layout:decorator="fragment/layout">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml" lang="zh-CN"
+      layout:decorator="fragment/layout">
 <head>
-    <title>管理后台</title>
+    <title>用户管理</title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -9,7 +10,7 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>系统管理</h3>
+                    <h3>普通用户管理</h3>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -19,8 +20,8 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>人员列表
-                                    <small><a href="" th:href="@{/addUser}">添加人员</a></small>
+                                <h2>普通用户列表
+                                    <small><a href="" th:href="@{/addAverageUser}">添加普通用户</a></small>
                                 </h2>
 
                                 <div class="clearfix"></div>
@@ -40,15 +41,17 @@
                                     <table class="table table-striped jambo_table bulk_action">
                                         <thead>
                                         <tr class="headings">
-                                            <th>
+                                            <th class="column-title" style="text-align:center;">
                                                 <input type="checkbox" id="check_all"/>
                                             </th>
-                                            <th class="column-title">编号</th>
-                                            <th class="column-title">账号</th>
-                                            <th class="column-title">姓名</th>
-                                            <th class="column-title">角色</th>
-                                            <th class="column-title">手机号</th>
-                                            <th class="column-title">操作</th>
+                                            <th class="column-title" style="text-align:center;">用户编号</th>
+                                            <th class="column-title" style="text-align:center;">用户名</th>
+                                            <th class="column-title" style="text-align:center;">手机号</th>
+                                            <th class="column-title" style="text-align:center;">邮箱</th>
+                                            <th class="column-title" style="text-align:center;">简介</th>
+                                            <th class="column-title" style="text-align:center;">个性签名</th>
+                                            <th class="column-title" style="text-align:center;">用户等级</th>
+                                            <th class="column-title" style="text-align:center;">操作</th>
                                         </tr>
                                         </thead>
 
@@ -68,7 +71,7 @@
     <script type="text/javascript">
         var baseUrl = $('#baseUrl').attr("href");
         /*<![CDATA[*/
-        var editUserUrl = baseUrl + 'editUser';
+        var editUserUrl = baseUrl + 'editAverageUser';
         var _managerOperation = {
             configData: {
                 start: 1,
@@ -93,21 +96,23 @@
                 if ($("#userName").val() != null && $("#userName").val() != '') {
                     data += "&userName=" + encodeURIComponent($("#userName").val());
                 }
-                $.getJSON(baseUrl + 'system/indexSearch', data, function (result) {
+                $.getJSON(baseUrl + 'averageUser/indexSearch', data, function (result) {
                     console.log(result);
                     var $tbody = $('tbody').empty();
                     $.each(result.data.list, function (index, item) {
                         $tbody.append(
                             ' <tr class="even pointer">' +
-                            '<td class="a-center ">' +
-                            ' <input type="checkbox" val="' + item.info.id + '" class="check_item" name="ckb"/>' +
+                            '<td class="a-center " style="text-align:center;">' +
+                            ' <input type="checkbox" val="' + item.id + '" class="check_item" name="ckb"/>' +
                             ' </td>' +
-                            '<td class=" ">' + item.info.id + '</td>' +
-                            '<td class=" ">' + item.info.username + '</td>' +
-                            '<td class=" ">' + item.info.name + '</td>' +
-                            '<td class=" ">' + item.roleName + '</td>' +
-                            '<td class=" ">' + item.info.phone + '</td>' +
-                            '<td class=" "><a href="' + editUserUrl + '?id=' + item.info.id + '">编辑</a>&nbsp;</td>' +
+                            '<td class="column-title" style="text-align:center;">' + item.userCode + '</td>' +
+                            '<td class="column-title" style="text-align:center;">' + item.userName + '</td>' +
+                            '<td class="column-title" style="text-align:center;">' + item.phone + '</td>' +
+                            '<td class="column-title" style="text-align:center;">' + item.email + '</td>' +
+                            '<td class="column-title" style="text-align:center;">' + item.userIntro + '</td>' +
+                            '<td class="column-title" style="text-align:center;">' + item.signature + '</td>' +
+                            '<td class="column-title" style="text-align:center;">' + item.userGrade + '</td>' +
+                            '<td class="column-title" style="text-align:center;"><a href="' + editUserUrl + '?id=' + item.id + '">编辑</a>&nbsp;</td>' +
                             '</tr>');
                     });
                     $("#pagination").bs_pagination({
@@ -155,7 +160,7 @@
             }
             $.ajax({
                 async: false,
-                url: baseUrl + "system/deleteUser",
+                url: baseUrl + "averageUser/deleteAverageUser",
                 dataType: "json",
                 type: "post",
                 data: {ids: ids},

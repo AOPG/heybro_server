@@ -7,6 +7,7 @@
     -->
     <id column="comment_Id" jdbcType="INTEGER" property="commentId" />
     <result column="dyn_id" jdbcType="INTEGER" property="dynId" />
+    <result column="like" jdbcType="INTEGER" property="like" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.heybro.entity.Comment">
     <!--
@@ -18,7 +19,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    comment_Id, dyn_id
+    comment_Id, dyn_id, like
   </sql>
   <sql id="Blob_Column_List">
     <!--

@@ -51,19 +51,19 @@ public class AverageUser implements Serializable {
     /**
      * 用户简介
      */
-    @Column(name = "`user_ Intro`")
+    @Column(name = "user_Intro")
     private String userIntro;
 
     /**
      * 用户头像
      */
-    @Column(name = "`user_ portrait`")
+    @Column(name = "user_portrait")
     private String userPortrait;
 
     /**
      * 个性签名
      */
-    @Column(name = "`user_ signature`")
+    @Column(name = "user_signature")
     private String userSignature;
 
     /**
@@ -239,7 +239,7 @@ public class AverageUser implements Serializable {
     /**
      * 获取用户简介
      *
-     * @return user_ Intro - 用户简介
+     * @return user_Intro - 用户简介
      */
     public String getUserIntro() {
         return userIntro;
@@ -257,7 +257,7 @@ public class AverageUser implements Serializable {
     /**
      * 获取用户头像
      *
-     * @return user_ portrait - 用户头像
+     * @return user_portrait - 用户头像
      */
     public String getUserPortrait() {
         return userPortrait;
@@ -275,7 +275,7 @@ public class AverageUser implements Serializable {
     /**
      * 获取个性签名
      *
-     * @return user_ signature - 个性签名
+     * @return user_signature - 个性签名
      */
     public String getUserSignature() {
         return userSignature;

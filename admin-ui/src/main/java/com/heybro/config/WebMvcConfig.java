@@ -52,6 +52,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
         //用户管理-普通用户管理
         registry.addViewController("/averageUser").setViewName("userManage/averageUser/index");
+        registry.addViewController("/addAverageUser").setViewName("userManage/averageUser/addAverageUser");
+        registry.addViewController("/editAverageUser").setViewName("userManage/averageUser/editAverageUser");
+
         //用户管理-消息管理
         registry.addViewController("/massage").setViewName("userManage/massage/index");
         //用户管理-动态管理

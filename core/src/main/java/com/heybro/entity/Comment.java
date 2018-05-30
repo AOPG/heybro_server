@@ -18,6 +18,11 @@ public class Comment implements Serializable {
     private Integer dynId;
 
     /**
+     * 点赞数
+     */
+    private Integer like;
+
+    /**
      * 评论内容
      */
     private String content;
@@ -61,6 +66,24 @@ public class Comment implements Serializable {
     }
 
     /**
+     * 获取点赞数
+     *
+     * @return like - 点赞数
+     */
+    public Integer getLike() {
+        return like;
+    }
+
+    /**
+     * 设置点赞数
+     *
+     * @param like 点赞数
+     */
+    public void setLike(Integer like) {
+        this.like = like;
+    }
+
+    /**
      * 获取评论内容
      *
      * @return content - 评论内容
@@ -86,6 +109,7 @@ public class Comment implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", commentId=").append(commentId);
         sb.append(", dynId=").append(dynId);
+        sb.append(", like=").append(like);
         sb.append(", content=").append(content);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

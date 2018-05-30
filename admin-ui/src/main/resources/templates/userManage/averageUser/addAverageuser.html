@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="zh-CN" layout:decorator="fragment/layout">
+<head>
+    <title>管理后台</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>用户管理</h3>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="clearfix"></div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>添加用户<small><a href="javascript:window.history.go(-1);">返回</a></small></h2>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <br/>
+                        <div class="x_content">
+                            <br />
+                            <form id="form_save" class="form-horizontal form-label-left">
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        用户名 *
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text"  id="username" name="userName" required="required" data-error="账号不能为空！" class="form-control col-md-7 col-xs-12"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        密码 *
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="password" id="password" name="userPass" required="required" data-error="密码不能为空！" class="form-control col-md-7 col-xs-12" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        用户签名 *
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="usersignature" name="userSignature" required="required" data-error="密码不能为空！" class="form-control col-md-7 col-xs-12" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        手机
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="phone" name="userPhone" class="form-control col-md-7 col-xs-12"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        用户简介 *
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="userintro" name="userIntro" class="form-control col-md-7 col-xs-12"
+                                               required="required" data-error="用户简介不能为空！"/>
+                                    </div>
+                                </div>
+
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                        <input type="hidden" id="h_id" />
+                                        <button type="button" class="btn btn-success btn-primary">提交</button>
+                                        <button class="btn btn-primary" type="button" onclick="JavaScript:window.history.back(-1);">取消</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var baseUrl = $('#baseUrl').attr("href");
+        /*<![CDATA[*/
+        $(function () {
+            $('#form_save').on('success.form.fv', function (e) {
+                $.ajax({
+                    url: baseUrl+"averageUser/doAddAverageUser",
+                    type: 'POST',
+                    data: $("#form_save").serialize()
+                }).then(function (res) {
+                    console.log(res);
+                    if (res.success) {
+                        alertAndTurn(res.msg,1,baseUrl+"averageUser");
+                    } else {
+                        layer.msg(res.msg, {icon: 2});
+                    }
+                }, function (res) {
+                    layer.msg("请求网络失败，请重试", {icon: 2});
+                });
+            }).on('click', '.btn-primary', function () {
+                // 提交表单
+                $('#form_save').data('formValidation').validate();
+            }).formValidation({
+                framework: 'bootstrap',
+                excluded: ':disabled',
+                icon: {
+                    valid: 'fa fa-check',
+                    invalid: 'fa fa-times',
+                    validating: 'fa fa-refresh'
+                },
+                fields: {
+                    userName: {
+                        validators: {
+                            notEmpty: {
+                                message: '帐号不能为空'
+                            }
+                        }
+                    },
+                    userPass: {
+                        validators: {
+                            notEmpty: {
+                                message: '密码不能为空'
+                            }
+                        }
+                    },
+                    userSignature: {
+                        validators: {
+                            notEmpty: {
+                                message: '用户签名不能为空'
+                            }
+                        }
+                    },
+                    userPhone: {
+                        validators: {
+                            notEmpty: {
+                                message: '用户手机不能为空'
+                            }
+                        }
+                    },
+                    userIntro: {
+                         validators: {
+                             notEmpty: {
+                                 message: '用户简介不能为空'
+                             }
+                         }
+                     }
+                }
+            });
+        });
+        /*]]>*/
+    </script>
+</div>
+</body>
+</html>
