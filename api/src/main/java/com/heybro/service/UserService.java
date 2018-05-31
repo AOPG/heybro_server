@@ -28,6 +28,7 @@ import java.util.List;
 @Service
 @Slf4j
 public class UserService {
+
     @Autowired
     private AverageUserMapper averageUserMapper;
 

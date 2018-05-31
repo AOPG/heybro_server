@@ -22,7 +22,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
     /**
      *
      *普通用户登陆
