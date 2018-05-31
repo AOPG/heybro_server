@@ -1,7 +1,7 @@
 debug: true
 
 server:
-  port: 8080
+  port: 8082
   context-path: /android
   domain: localhost
 
@@ -33,6 +33,13 @@ spring:
   thymeleaf:
     cache: false
     mode: HTML
+  data:
+    mongodb:
+      host: 101.200.59.121
+      port: 27017
+      database: heybro
+      username: wangweijian
+      password: "wangweijian"
   aop:
     proxy-target-class: true
   jackson:
