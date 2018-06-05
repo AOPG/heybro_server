@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>admin-ui</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <description>管理系统组件</description>
     <url>http://maven.apache.org</url>
 
@@ -126,7 +126,15 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
+                    <mainClass>com.heybro.CegAdminUIApplication</mainClass>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- mybatis 代码生成器插件 -->
