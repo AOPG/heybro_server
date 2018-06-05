@@ -1,7 +1,7 @@
 debug: true
 
 server:
-  port: 8081
+  port: 8080
   context-path: /manager
 
 spring:
