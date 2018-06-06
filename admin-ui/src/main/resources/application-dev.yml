@@ -41,6 +41,8 @@ spring:
         login-password: heybro
   thymeleaf:
     cache: false
+    prefix:
+      classpath: /templates/
   data:
     mongodb:
       host: 101.200.59.121
