@@ -21,7 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -69,10 +71,6 @@ public class UserService {
                     item.put("userIntro",list.get(i).getUserIntro());
                     item.put("userGrade",list.get(i).getUserGrade());
 
-                    System.out.println("2222222");
-                    System.out.println(list.get(i).getUserSex());
-                    System.out.println(list.get(i).getUserSignature());
-                    System.out.println(list.get(i).getUserIntro());
                     jsonArray.add(item);
                 }
 
@@ -94,10 +92,6 @@ public class UserService {
         }
         return builder.build();
     }
-
-
-
-
 
     /**
      *
@@ -128,6 +122,16 @@ public class UserService {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
         try {
+            long time=System.currentTimeMillis();
+            Date date=new Date(time);
+            String ma="yyyyMMddhhmmss";
+            SimpleDateFormat forma=new SimpleDateFormat(ma);
+            String nwdate=forma.format(date);
+
+            //后期完善
+            averageUser.setUserCode(nwdate);
+            averageUser.setUserSex("男");
+
             averageUserMapper.insert(averageUser);
             builder.msg("添加用户成功");
             builder.success(true);
