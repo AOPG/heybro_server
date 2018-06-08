@@ -37,13 +37,12 @@
             <version>${project.version}</version>
         </dependency>
 
-
-        <!-- OAuth2组件 -->
-        <!--<dependency>-->
-            <!--<groupId>WeaDows</groupId>-->
-            <!--<artifactId>oauth2</artifactId>-->
-            <!--<version>${project.version}</version>-->
-        <!--</dependency>-->
+        <!--OAuth2组件-->
+        <dependency>
+            <groupId>heybro</groupId>
+            <artifactId>oauth2</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
 
         <dependency>
