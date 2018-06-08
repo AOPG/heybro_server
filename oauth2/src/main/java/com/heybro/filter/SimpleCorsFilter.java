@@ -1,4 +1,4 @@
-package com.songpo.ceg.filter;
+package com.heybro.filter;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  * CORS跨域过滤器
- * Created by SongpoLiu on 2016/12/23.
+ * Created by on 2016/12/23.
  */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)

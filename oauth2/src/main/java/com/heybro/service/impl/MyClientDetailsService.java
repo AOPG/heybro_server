@@ -1,7 +1,7 @@
-package com.songpo.ceg.service.impl;
+package com.heybro.service.impl;
 
-import com.songpo.ceg.entity.CegUser;
-import com.songpo.ceg.mapper.CegUserMapper;
+import com.heybro.entity.AverageUser;
+import com.heybro.mapper.AverageUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.ClientDetails;
@@ -12,17 +12,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 /**
- * Created by SongpoLiu on 2016/12/23.
+ * Created by on 2016/12/23.
  */
 @Service
 public class MyClientDetailsService implements ClientDetailsService {
 
     @Autowired
-    private CegUserMapper userMapper;
+    private AverageUserMapper averageUserMapper;
 
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
-        CegUser user = this.userMapper.selectOne(new CegUser() {{
+        AverageUser user = this.averageUserMapper.selectOne(new AverageUser() {{
             setClientId(clientId);
         }});
         if (null == user) {
@@ -34,7 +34,7 @@ public class MyClientDetailsService implements ClientDetailsService {
         details.setClientSecret(user.getClientSecret());
         details.setScope(StringUtils.commaDelimitedListToSet("read,write"));
         details.setAuthorizedGrantTypes(StringUtils.commaDelimitedListToSet("client_credentials"));
-        details.setAuthorities(AuthorityUtils.createAuthorityList(user.getRole().toString()));
+        //details.setAuthorities(AuthorityUtils.createAuthorityList(user.getRole().toString()));
         return details;
     }
 }

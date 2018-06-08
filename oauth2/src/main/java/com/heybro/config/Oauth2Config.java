@@ -1,6 +1,6 @@
-package com.songpo.ceg.config;
+package com.heybro.config;
 
-import com.songpo.ceg.service.impl.MyClientDetailsService;
+import com.heybro.service.impl.MyClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 /**
- * Created by SongpoLiu on 16/3/7.
+ * Created by on 16/3/7.
  */
 @Configuration
 public class Oauth2Config {
