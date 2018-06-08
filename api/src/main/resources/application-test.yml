@@ -51,61 +51,15 @@ spring:
         max-file-size: 8MB
         max-request-size: 8MB
 
- #Oauth2 配置
-#security:
-#  oauth2:
-#    resource:
-#      id: api
-#    authorization:
-#      # 不拦截的地址
-#      un-hook-list: "/**/**,/**/*.html,/**/*.html/,/druid/**,/oauth/token,/api/register,/api/login,/api/forgetPassword,/api/sms/**,/api/index/loadIndexGoods,/api/good/goodDetial,/api/evalLog/goodsEvalLog,/api/img/**,/api/wxpay/mp/notify/**,/api/orders/findByAccountType,/api/wxpay/getPrepayId,/api/banner/inquire,/**"
+## Oauth2 配置
+security:
+  oauth2:
+    resource:
+      id: api
+    authorization:
+      # 不拦截的地址
+      un-hook-list: "/**/**,/druid/**,/oauth/token,/api/register,/api/login,/api/forgetPassword"
 
-## 短信配置
-#sms:
-#  aliyun:
-#    # 你的accessKeyId
-#    access-key-id: LTAIThT0CzCGzmQl
-#    # 你的accessKeySecret
-#    access-key-secret: zQsGW8t7YMDGSvUQzCTun9bh1tjiIU
-#    # 短信模板ID，传入的模板必须是在短信服务“短信服务-短信模板”中的可用模板。示例：SMS_585014
-#    #短信模版第一个为注册，第二个为找回密码，第三个为修改重要信息（顺序不可以改变）
-#    template-code: 'SMS_76595733,SMS_76595732,SMS_76595731'
-#    # 短信签名，传入的短信签名必须是在短信服务“短信服务-短信签名”中的可用签名。如“短信服务”已在短信签名中通过审核，则可传入”短信服务“（传参时去掉引号）作为短信签名。短信效果示例：【短信服务】欢迎使用短信服务服务。
-#    sign-name: ''
-#    # 有效期，单位为秒
-#    expire-time: 600
-#    # 重发间，单位微妙
-#    retry-interval: 90
-#    # 验证码长度
-#    code-length: 4
-#    # Redis存储Key前缀
-#    keyPrefix: 'verify-code:'
-
-## 支付配置
-#pay:
-#  wx:
-#    # 微信appid
-#    appID: wxf637003cb62b14bf
-#    # 商户号
-#    mchID: 1489098302
-#    # 支付密钥
-#    key: TskX4qo84b0f11jjOIHLlbV1Y7sEGon6
-#    #SECRET
-#    secret: b8a7defe593cb94a7de337b67dccda56
-#    # 支付证书路径，java需要使用P12证书，请下载后缀名为.p12的文件
-#    certPath:
-#    # 支付通知回调地址
-#    notifyUrl: http://test.yyb888.cn/rest/api/wxpay/mp/notify/
-#  ali:
-#    # 商户号
-#    appId: 2088421753191782
-#    # 商户私钥
-#    merchantPrivateKey: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDA8vdLQLYgDRDIcvilyyeCk965oKo7sJ/e8Qf8EeprM7gvyZSqVQnBgN7GP3ALVtOl2JSvH4AUeAzTS5R8WAgjoVDjzG5VvEg6eelKjepI+D4lRAHN4e2mH+ntbopbi0jZzCxvHW8XdqysAWI1F/2UoMOs7Ho0JK8keg3WwnbgFEWT9vm0IUjsO+ybPX4PNLcdPeBJTkPLG2UHDnB7HLL0arvADi3K7HDiYTip7hcsbX8tzZqbFY1pRsdPmw/OZvBKANcv/vrtKYlsFk9zL4TXla/DwQFU25aQ89myhrTyBBbcjwFWvreeSP5R6qozQQW+zOu0Kqx6KvLYoQwRjLLLAgMBAAECggEAXsxA0blGgfLJZyKNpa9thwstp5gXa2I4+ekEWkVXHjp36QqqPxGuzGKLkW2DmB6dt+L0EiJw5B2jd4CvwHPj89WDD5jWMMtj1U8mXpnhHN7Sca67EDNLdo5BeYUQ9y80qMVWo3UbqrSE27GGVb2mugpOeTxqQgov/sT03aoHi8mu8mKw1tQKWkieVx0oHNO9SrY3XdYuChZxqT4t/Pz/R7OAyjf6Bet2lflUbRN3+kNf2aDaK2Bu3lVyNGFYddAeyoTnKQW6Db+NA+CpGlVf4uDVSjCORC8F/ya4nZmPb9TLbQbIMnQHjAYYWdtsrBETXLwy11lB9DAZoDw3Wg3YwQKBgQDvcZKOcMwLGvZGFImJ3KeaFfN5WRzNSFmioQ/hZOxQqQoYxEYYeofo+7XCWo/8RSEgDBsekdS9yB+18htkE40PD3u6S1tDMWBAj14Hw1JLuizMBrmIWhntFPetVh4BA/F1Lzv6dXoh8G/N49jt5Ng7kGUT3GoGDoEisB0GhAoSIQKBgQDOSmLuMlXsfReAIIrS6JqxJtekpGFbquU4icn+9zCcxe/iyfki4u76VHe3fEf4ZnTtLyjs8rl1dMUk/RPzMjlegB0XHyH2yR9b9sbCFfoxdNwx+MFIC8CijtiUmytXFIsvDicK6LU0TuXR05+f/Y3eJYlLZE9F0VezhIddPME/awKBgHcHi2Z51kUTAyg1X2YEJeEoVl+VmAbIl56L2HwgkoVKcvV65KmYh+We820JXhh3OQ9YVUbuEcbCLFljYJBwU6gP917VxSly6zlMy96qD0gL5ecK1MJeoBLGYJVvgPzaO/cYIwXPzoX+o2XDhXxFTeTWVBj6ck5OeY2H5PXvP55hAoGANvcPARScXFTATD1ff+7GOOl2j8HUxw3z4WqlTbAjXcJHto/GOAtrTXvwIg2VR5RVF1V3fBr4W1lvpflgtW3uZ0WPereq3wybtG8+ajxc24ydlxsGtOGcxDN3dbEajStGIpWMxZVXosZa6duPLpvqjwRFXrctgBbVXVm0j50+iF0CgYEAuPDybWOglOGtXy6u/f8YvMHZ/A3ZC9ZBH8mX7G762DNEjnwROsNFYZveenqq3lx0gf0Z1T69uPDHLhIQQa8vFmQNzcGEt+nQNG8DKafHGn+LQIM/YtkmsgdmDivtYUbZB2yCB0fEvraQsLDv6fFWfNhDDusinNDNcfYmcVRm6+U=
-#    # 阿里支付公钥
-#    alipayPublicKey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB
-#    # 支付通知回调地址
-#    notifyUrl:
-#
 mybatis:
     type-aliases-package: com.heybro.entity
     mapper-locations: classpath:com/heybro/mapper/*.xml

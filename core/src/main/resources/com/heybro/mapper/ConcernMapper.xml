@@ -8,11 +8,12 @@
     <id column="concern_Id" jdbcType="INTEGER" property="concernId" />
     <result column="user_code" jdbcType="VARCHAR" property="userCode" />
     <result column="user_concern_code" jdbcType="VARCHAR" property="userConcernCode" />
+    <result column="user_note" jdbcType="VARCHAR" property="userNote" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
       WARNING - @mbg.generated
     -->
-    concern_Id, user_code, user_concern_code
+    concern_Id, user_code, user_concern_code, user_note
   </sql>
 </mapper>

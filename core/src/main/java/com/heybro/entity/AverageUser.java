@@ -1,6 +1,7 @@
 package com.heybro.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 
 @Table(name = "average_user")
@@ -107,6 +108,30 @@ public class AverageUser implements Serializable {
      */
     @Column(name = "user_area")
     private String userArea;
+
+    /**
+     * 用户昵称
+     */
+    @Column(name = "user_nickname")
+    private String userNickname;
+
+    /**
+     * 创建时间
+     */
+    @Column(name = "create_time")
+    private LocalDateTime createTime;
+
+    /**
+     * 客户端标识
+     */
+    @Column(name = "client_id")
+    private String clientId;
+
+    /**
+     * 客户端密钥
+     */
+    @Column(name = "client_secret")
+    private String clientSecret;
 
     private static final long serialVersionUID = 1L;
 
@@ -416,6 +441,78 @@ public class AverageUser implements Serializable {
         this.userArea = userArea == null ? null : userArea.trim();
     }
 
+    /**
+     * 获取用户昵称
+     *
+     * @return user_nickname - 用户昵称
+     */
+    public String getUserNickname() {
+        return userNickname;
+    }
+
+    /**
+     * 设置用户昵称
+     *
+     * @param userNickname 用户昵称
+     */
+    public void setUserNickname(String userNickname) {
+        this.userNickname = userNickname == null ? null : userNickname.trim();
+    }
+
+    /**
+     * 获取创建时间
+     *
+     * @return create_time - 创建时间
+     */
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    /**
+     * 设置创建时间
+     *
+     * @param createTime 创建时间
+     */
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    /**
+     * 获取客户端标识
+     *
+     * @return client_id - 客户端标识
+     */
+    public String getClientId() {
+        return clientId;
+    }
+
+    /**
+     * 设置客户端标识
+     *
+     * @param clientId 客户端标识
+     */
+    public void setClientId(String clientId) {
+        this.clientId = clientId == null ? null : clientId.trim();
+    }
+
+    /**
+     * 获取客户端密钥
+     *
+     * @return client_secret - 客户端密钥
+     */
+    public String getClientSecret() {
+        return clientSecret;
+    }
+
+    /**
+     * 设置客户端密钥
+     *
+     * @param clientSecret 客户端密钥
+     */
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret == null ? null : clientSecret.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -439,6 +536,10 @@ public class AverageUser implements Serializable {
         sb.append(", userCity=").append(userCity);
         sb.append(", userProvince=").append(userProvince);
         sb.append(", userArea=").append(userArea);
+        sb.append(", userNickname=").append(userNickname);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", clientId=").append(clientId);
+        sb.append(", clientSecret=").append(clientSecret);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

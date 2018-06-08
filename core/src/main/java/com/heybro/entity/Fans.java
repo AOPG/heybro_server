@@ -23,6 +23,12 @@ public class Fans implements Serializable {
     @Column(name = "user_fans_code")
     private String userFansCode;
 
+    /**
+     * 粉丝备注
+     */
+    @Column(name = "user_note")
+    private String userNote;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -79,6 +85,24 @@ public class Fans implements Serializable {
         this.userFansCode = userFansCode == null ? null : userFansCode.trim();
     }
 
+    /**
+     * 获取粉丝备注
+     *
+     * @return user_note - 粉丝备注
+     */
+    public String getUserNote() {
+        return userNote;
+    }
+
+    /**
+     * 设置粉丝备注
+     *
+     * @param userNote 粉丝备注
+     */
+    public void setUserNote(String userNote) {
+        this.userNote = userNote == null ? null : userNote.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -88,6 +112,7 @@ public class Fans implements Serializable {
         sb.append(", fansId=").append(fansId);
         sb.append(", userCode=").append(userCode);
         sb.append(", userFansCode=").append(userFansCode);
+        sb.append(", userNote=").append(userNote);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

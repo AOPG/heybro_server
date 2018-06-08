@@ -23,6 +23,12 @@ public class Concern implements Serializable {
     @Column(name = "user_concern_code")
     private String userConcernCode;
 
+    /**
+     * 关注备注
+     */
+    @Column(name = "user_note")
+    private String userNote;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -79,6 +85,24 @@ public class Concern implements Serializable {
         this.userConcernCode = userConcernCode == null ? null : userConcernCode.trim();
     }
 
+    /**
+     * 获取关注备注
+     *
+     * @return user_note - 关注备注
+     */
+    public String getUserNote() {
+        return userNote;
+    }
+
+    /**
+     * 设置关注备注
+     *
+     * @param userNote 关注备注
+     */
+    public void setUserNote(String userNote) {
+        this.userNote = userNote == null ? null : userNote.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -88,6 +112,7 @@ public class Concern implements Serializable {
         sb.append(", concernId=").append(concernId);
         sb.append(", userCode=").append(userCode);
         sb.append(", userConcernCode=").append(userConcernCode);
+        sb.append(", userNote=").append(userNote);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

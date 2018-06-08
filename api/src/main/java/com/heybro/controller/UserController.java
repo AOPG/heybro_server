@@ -29,9 +29,18 @@ public class UserController {
      */
     @ResponseBody
     @GetMapping("ASLogin")
-    public String selectAverageUser(String userName,String userPass) throws IOException{
+    public BusinessMessage<JSONObject> login(String userName,String userPass){
+        return userService.login(userName,userPass);
+    }
 
-        return userService.selectAverageUser(userName,userPass);
+
+    /***
+     * 注册
+     * */
+    @ResponseBody
+    @GetMapping("ASRegister")
+    public BusinessMessage<JSONObject> register(String userName,String userPass){
+        return userService.register(userName,userPass);
     }
 
 }

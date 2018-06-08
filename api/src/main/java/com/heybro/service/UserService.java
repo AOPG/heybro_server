@@ -1,26 +1,22 @@
-package com.heybro.service;//package com.heybro.service;
+package com.heybro.service;
 
 
-import com.alibaba.druid.util.StringUtils;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
+
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+
 import com.heybro.domain.BusinessMessage;
 import com.heybro.domain.BusinessMessageBuilder;
 import com.heybro.entity.AverageUser;
 import com.heybro.mapper.AverageUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import tk.mybatis.mapper.entity.Example;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * Created by 王攀 on 2018/5/29.
@@ -28,6 +24,8 @@ import java.util.List;
 @Service
 @Slf4j
 public class UserService {
+
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
     private AverageUserMapper averageUserMapper;
@@ -37,32 +35,74 @@ public class UserService {
     * 普通用户登陆
     *
     * */
-    public String selectAverageUser (String userName , String passWord) throws IOException {
+    public BusinessMessage<JSONObject> login(String userName , String passWord) {
+        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
 
-
-        System.out.println("4444444");
-        Example example = new Example(AverageUser.class);
-        Example.Criteria criteria = example.createCriteria();
 
         System.out.println(userName);
         System.out.println(passWord);
-        criteria.andEqualTo("userName", userName);
-        criteria.andEqualTo("userPass", passWord);
 
         AverageUser averageUser = new AverageUser();
-
-        if (null != averageUserMapper.selectByExample(example) && averageUserMapper.selectByExample(example).size() > 0) {
-            averageUser = averageUserMapper.selectByExample(example).get(0);
-        }
-
-        ObjectMapper x = new ObjectMapper();
-        String str = "true";
-        if (averageUser.getUserId() != null) {
-            str = x.writeValueAsString(true);
+        averageUser.setUserName(userName);
+        averageUser = averageUserMapper.selectOne(averageUser);
+        if (null != averageUser) {
+            boolean flag = passwordEncoder.matches(passWord, averageUser.getUserPass());
+            if (flag) {
+                JSONObject data = new JSONObject();
+                data.put("client_id", averageUser.getClientId());
+                data.put("client_secret", averageUser.getClientSecret());
+                data.put("user_code", averageUser.getUserCode());//当前用户的编码
+                builder.data(data);
+                builder.success(true);
+            } else {
+                builder.msg("用户信息错误，请重试");
+            }
         } else {
-            str = x.writeValueAsString(false);
+            builder.msg("用户信息错误，请重试");
         }
-        return str;
-
+        return builder.build();
     }
+
+    /**
+     * 注册
+     *password
+     * @param username 帐号
+     * @param password 密码
+     */
+    public BusinessMessage<JSONObject> register(String username, String password) {
+        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try {
+            @SuppressWarnings("serial")
+            AverageUser user = averageUserMapper.selectOne(new AverageUser() {{
+                setUserName(username);
+            }});
+            if (null == user) {
+                String encPassword = passwordEncoder.encode(password);
+
+                user = new AverageUser();
+                user.setUserName(username);
+                user.setUserPass(encPassword);
+                user.setUserCode(username);
+                LocalDateTime createTime = LocalDateTime.now();
+                user.setCreateTime(createTime);
+                user.setClientId(UUID.randomUUID().toString().replace("-", ""));
+                user.setClientSecret(UUID.randomUUID().toString().replace("-", ""));
+                averageUserMapper.insert(user);
+                JSONObject data = new JSONObject();
+                data.put("client_id", user.getClientId());
+                data.put("client_secret", user.getClientSecret());
+                data.put("user_code", user.getUserCode());
+                builder.data(data);
+                builder.success(true);
+            }else{
+                builder.msg("注册失败，用户名已经被占用");
+            }
+        } catch (Exception e) {
+            log.error("用户注册失败");
+        }
+        return builder.build();
+    }
+
 }
