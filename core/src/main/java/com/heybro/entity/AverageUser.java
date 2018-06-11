@@ -121,18 +121,6 @@ public class AverageUser implements Serializable {
     @Column(name = "create_time")
     private LocalDateTime createTime;
 
-    /**
-     * 客户端标识
-     */
-    @Column(name = "client_id")
-    private String clientId;
-
-    /**
-     * 客户端密钥
-     */
-    @Column(name = "client_secret")
-    private String clientSecret;
-
     private static final long serialVersionUID = 1L;
 
     /**
@@ -477,42 +465,6 @@ public class AverageUser implements Serializable {
         this.createTime = createTime;
     }
 
-    /**
-     * 获取客户端标识
-     *
-     * @return client_id - 客户端标识
-     */
-    public String getClientId() {
-        return clientId;
-    }
-
-    /**
-     * 设置客户端标识
-     *
-     * @param clientId 客户端标识
-     */
-    public void setClientId(String clientId) {
-        this.clientId = clientId == null ? null : clientId.trim();
-    }
-
-    /**
-     * 获取客户端密钥
-     *
-     * @return client_secret - 客户端密钥
-     */
-    public String getClientSecret() {
-        return clientSecret;
-    }
-
-    /**
-     * 设置客户端密钥
-     *
-     * @param clientSecret 客户端密钥
-     */
-    public void setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret == null ? null : clientSecret.trim();
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -538,8 +490,6 @@ public class AverageUser implements Serializable {
         sb.append(", userArea=").append(userArea);
         sb.append(", userNickname=").append(userNickname);
         sb.append(", createTime=").append(createTime);
-        sb.append(", clientId=").append(clientId);
-        sb.append(", clientSecret=").append(clientSecret);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

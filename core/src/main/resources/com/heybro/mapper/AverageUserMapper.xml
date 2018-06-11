@@ -24,8 +24,6 @@
     <result column="user_area" jdbcType="VARCHAR" property="userArea" />
     <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="client_id" jdbcType="VARCHAR" property="clientId" />
-    <result column="client_secret" jdbcType="VARCHAR" property="clientSecret" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
@@ -33,6 +31,6 @@
     -->
     user_id, user_code, user_name, user_pass, user_sex, user_phone, user_mail, user_Intro, 
     user_portrait, user_signature, homepage_back, user_grade, user_lng, user_lat, user_city, 
-    user_province, user_area, user_nickname, create_time, client_id, client_secret
+    user_province, user_area, user_nickname, create_time
   </sql>
 </mapper>

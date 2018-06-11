@@ -50,8 +50,6 @@ public class UserService {
             boolean flag = passwordEncoder.matches(passWord, averageUser.getUserPass());
             if (flag) {
                 JSONObject data = new JSONObject();
-                data.put("client_id", averageUser.getClientId());
-                data.put("client_secret", averageUser.getClientSecret());
                 data.put("user_code", averageUser.getUserCode());//当前用户的编码
                 builder.data(data);
                 builder.success(true);
@@ -87,12 +85,12 @@ public class UserService {
                 user.setUserCode(username);
                 LocalDateTime createTime = LocalDateTime.now();
                 user.setCreateTime(createTime);
-                user.setClientId(UUID.randomUUID().toString().replace("-", ""));
-                user.setClientSecret(UUID.randomUUID().toString().replace("-", ""));
+//                user.setClientId(UUID.randomUUID().toString().replace("-", ""));
+//                user.setClientSecret(UUID.randomUUID().toString().replace("-", ""));
                 averageUserMapper.insert(user);
                 JSONObject data = new JSONObject();
-                data.put("client_id", user.getClientId());
-                data.put("client_secret", user.getClientSecret());
+//                data.put("client_id", user.getClientId());
+//                data.put("client_secret", user.getClientSecret());
                 data.put("user_code", user.getUserCode());
                 builder.data(data);
                 builder.success(true);

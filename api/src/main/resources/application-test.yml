@@ -51,14 +51,14 @@ spring:
         max-file-size: 8MB
         max-request-size: 8MB
 
-## Oauth2 配置
-security:
-  oauth2:
-    resource:
-      id: api
-    authorization:
-      # 不拦截的地址
-      un-hook-list: "/**/**,/druid/**,/oauth/token,/api/register,/api/login,/api/forgetPassword"
+### Oauth2 配置
+#security:
+#  oauth2:
+#    resource:
+#      id: api
+#    authorization:
+#      # 不拦截的地址
+#      un-hook-list: "/druid/**,/oauth/token,/api/register,/api/login,/api/forgetPassword"
 
 mybatis:
     type-aliases-package: com.heybro.entity
