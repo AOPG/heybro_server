@@ -24,8 +24,8 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("userInfo")
-    public BusinessMessage<JSONObject> userInfo(String userName){
-        return userService.userInfo(userName);
+    public BusinessMessage<JSONObject> userInfo(String username){
+        return userService.userInfo(username);
     }
 
 

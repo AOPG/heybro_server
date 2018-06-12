@@ -19,7 +19,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/**/**")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/test/**")
+                .antMatchers("/averageUser/ASRegister").permitAll()
+                .antMatchers("/averageUser/**")
                 .authenticated();
     }
 }
