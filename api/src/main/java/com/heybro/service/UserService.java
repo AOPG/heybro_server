@@ -89,8 +89,6 @@ public class UserService {
 //                user.setClientSecret(UUID.randomUUID().toString().replace("-", ""));
                 averageUserMapper.insert(user);
                 JSONObject data = new JSONObject();
-//                data.put("client_id", user.getClientId());
-//                data.put("client_secret", user.getClientSecret());
                 data.put("user_code", user.getUserCode());
                 builder.data(data);
                 builder.success(true);
@@ -103,4 +101,25 @@ public class UserService {
         return builder.build();
     }
 
+    public BusinessMessage<JSONObject> userInfo(String username) {
+        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try {
+            AverageUser user = averageUserMapper.selectOne(new AverageUser() {{
+                setUserName(username);
+            }});
+            user.setUserPass("");
+            if (user!=null){
+                builder.msg("加载个人信息成功！");
+                builder.success(true);
+                builder.data(JSONObject.parseObject(JSONObject.toJSONString(user)));
+            }else {
+                builder.msg("加载个人信息失败！");
+            }
+        }catch (Exception e){
+            builder.msg("服务器异常");
+            e.printStackTrace();
+        }
+        return builder.build();
+    }
 }

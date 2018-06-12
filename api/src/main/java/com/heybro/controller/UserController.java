@@ -22,25 +22,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
-
     @ResponseBody
-    @RequestMapping("hello")
-    public String hello(){
-        return "hello";
-    }
-
-
-
-    /**
-     *
-     *普通用户登陆
-     *
-     */
-    @ResponseBody
-    @RequestMapping("ASLogin")
-    public BusinessMessage<JSONObject> login(String userName,String userPass){
-        return userService.login(userName,userPass);
+    @RequestMapping("userInfo")
+    public BusinessMessage<JSONObject> userInfo(String userName){
+        return userService.userInfo(userName);
     }
 
 
