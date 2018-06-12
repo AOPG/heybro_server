@@ -30,38 +30,6 @@ public class UserService {
     @Autowired
     private AverageUserMapper averageUserMapper;
 
-    /*
-    *
-    * 普通用户登陆
-    *
-    * */
-    public BusinessMessage<JSONObject> login(String userName , String passWord) {
-        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
-        builder.success(false);
-
-
-        System.out.println(userName);
-        System.out.println(passWord);
-
-        AverageUser averageUser = new AverageUser();
-        averageUser.setUserName(userName);
-        averageUser = averageUserMapper.selectOne(averageUser);
-        if (null != averageUser) {
-            boolean flag = passwordEncoder.matches(passWord, averageUser.getUserPass());
-            if (flag) {
-                JSONObject data = new JSONObject();
-                data.put("user_code", averageUser.getUserCode());//当前用户的编码
-                builder.data(data);
-                builder.success(true);
-            } else {
-                builder.msg("用户信息错误，请重试");
-            }
-        } else {
-            builder.msg("用户信息错误，请重试");
-        }
-        return builder.build();
-    }
-
     /**
      * 注册
      *password
@@ -101,6 +69,9 @@ public class UserService {
         return builder.build();
     }
 
+    /**
+     * 用户个人信息
+     * */
     public BusinessMessage<JSONObject> userInfo(String username) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
@@ -122,4 +93,6 @@ public class UserService {
         }
         return builder.build();
     }
+
+
 }
