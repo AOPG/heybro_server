@@ -22,6 +22,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 根据id查询用户
+     * */
     @ResponseBody
     @RequestMapping("searchUserById")
     public BusinessMessage<JSONObject> searchUserById(String id){
@@ -38,8 +41,11 @@ public class UserController {
         return userService.register(userName,userPass);
     }
 
+    /**
+     * 加载用户个人信息
+     * */
     @ResponseBody
-    @RequestMapping("searchUserBy")
+    @RequestMapping("userInfo")
     public BusinessMessage<JSONObject> userInfo(String username){
         return userService.userInfo(username);
     }
