@@ -32,7 +32,7 @@ public class BasketRoomService {
             basketRoom.setRoomMode(mode);
             basketRoom.setRoomRate(rate);
             basketRoom.setRoomNum(num);
-            if(password != null&&!password.equals("")){
+            if(password != null){
                 basketRoom.setRoomPass(password);
                 basketRoom.setRoomPassSet(1);
             }else{
