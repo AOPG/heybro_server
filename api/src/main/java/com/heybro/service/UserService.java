@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -94,5 +95,29 @@ public class UserService {
         return builder.build();
     }
 
-
+    /**
+     * 根据id查询
+     * */
+    public BusinessMessage<JSONObject> searchUserById(String id) {
+        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try {
+            List<AverageUser> userList = averageUserMapper.select(new AverageUser() {{
+                setUserCode(id);
+            }});
+            if (null!=userList&&userList.size()>= 0){
+                JSONObject json = new JSONObject();
+                json.put("list",userList);
+                builder.data(json);
+                builder.success(true);
+                builder.msg("查询成功！");
+            }else {
+                builder.msg("查询失败！");
+            }
+        }catch (Exception e){
+            builder.msg("服务器异常");
+            e.printStackTrace();
+        }
+        return builder.build();
+    }
 }

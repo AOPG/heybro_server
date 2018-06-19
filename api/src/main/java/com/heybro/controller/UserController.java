@@ -23,9 +23,9 @@ public class UserController {
     private UserService userService;
 
     @ResponseBody
-    @RequestMapping("userInfo")
-    public BusinessMessage<JSONObject> userInfo(String username){
-        return userService.userInfo(username);
+    @RequestMapping("searchUserById")
+    public BusinessMessage<JSONObject> searchUserById(String id){
+        return userService.searchUserById(id);
     }
 
 
@@ -38,4 +38,9 @@ public class UserController {
         return userService.register(userName,userPass);
     }
 
+    @ResponseBody
+    @RequestMapping("searchUserBy")
+    public BusinessMessage<JSONObject> userInfo(String username){
+        return userService.userInfo(username);
+    }
 }
