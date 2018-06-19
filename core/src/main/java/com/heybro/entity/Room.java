@@ -25,6 +25,18 @@ public class Room implements Serializable {
     private Integer roomNum;
 
     /**
+     * 打球模式
+     */
+    @Column(name = "room_mode")
+    private String roomMode;
+
+    /**
+     * 房间等级限制
+     */
+    @Column(name = "room_rate")
+    private String roomRate;
+
+    /**
      * 房间类型(随便玩0，比赛1)
      */
     @Column(name = "room_type")
@@ -156,6 +168,42 @@ public class Room implements Serializable {
      */
     public void setRoomNum(Integer roomNum) {
         this.roomNum = roomNum;
+    }
+
+    /**
+     * 获取打球模式
+     *
+     * @return room_mode - 打球模式
+     */
+    public String getRoomMode() {
+        return roomMode;
+    }
+
+    /**
+     * 设置打球模式
+     *
+     * @param roomMode 打球模式
+     */
+    public void setRoomMode(String roomMode) {
+        this.roomMode = roomMode == null ? null : roomMode.trim();
+    }
+
+    /**
+     * 获取房间等级限制
+     *
+     * @return room_rate - 房间等级限制
+     */
+    public String getRoomRate() {
+        return roomRate;
+    }
+
+    /**
+     * 设置房间等级限制
+     *
+     * @param roomRate 房间等级限制
+     */
+    public void setRoomRate(String roomRate) {
+        this.roomRate = roomRate == null ? null : roomRate.trim();
     }
 
     /**
@@ -401,6 +449,8 @@ public class Room implements Serializable {
         sb.append(", roomId=").append(roomId);
         sb.append(", roomName=").append(roomName);
         sb.append(", roomNum=").append(roomNum);
+        sb.append(", roomMode=").append(roomMode);
+        sb.append(", roomRate=").append(roomRate);
         sb.append(", roomType=").append(roomType);
         sb.append(", roomDate=").append(roomDate);
         sb.append(", roomInfoId=").append(roomInfoId);

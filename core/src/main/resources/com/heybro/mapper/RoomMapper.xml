@@ -8,6 +8,8 @@
     <id column="room_Id" jdbcType="INTEGER" property="roomId" />
     <result column="room_name" jdbcType="VARCHAR" property="roomName" />
     <result column="room_num" jdbcType="INTEGER" property="roomNum" />
+    <result column="room_mode" jdbcType="VARCHAR" property="roomMode" />
+    <result column="room_rate" jdbcType="VARCHAR" property="roomRate" />
     <result column="room_type" jdbcType="INTEGER" property="roomType" />
     <result column="room_date" jdbcType="TIMESTAMP" property="roomDate" />
     <result column="room_info_id" jdbcType="INTEGER" property="roomInfoId" />
@@ -26,7 +28,8 @@
     <!--
       WARNING - @mbg.generated
     -->
-    room_Id, room_name, room_num, room_type, room_date, room_info_id, win_lose, room_pass_set, 
-    room_pass, room_peo, room_lng, room_lat, master_code, room_city, room_province, room_area
+    room_Id, room_name, room_num, room_mode, room_rate, room_type, room_date, room_info_id, 
+    win_lose, room_pass_set, room_pass, room_peo, room_lng, room_lat, master_code, room_city, 
+    room_province, room_area
   </sql>
 </mapper>

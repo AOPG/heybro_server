@@ -121,6 +121,8 @@ public class AverageUser implements Serializable {
     @Column(name = "create_time")
     private LocalDateTime createTime;
 
+    private String enable;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -465,6 +467,20 @@ public class AverageUser implements Serializable {
         this.createTime = createTime;
     }
 
+    /**
+     * @return enable
+     */
+    public String getEnable() {
+        return enable;
+    }
+
+    /**
+     * @param enable
+     */
+    public void setEnable(String enable) {
+        this.enable = enable == null ? null : enable.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -490,6 +506,7 @@ public class AverageUser implements Serializable {
         sb.append(", userArea=").append(userArea);
         sb.append(", userNickname=").append(userNickname);
         sb.append(", createTime=").append(createTime);
+        sb.append(", enable=").append(enable);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
