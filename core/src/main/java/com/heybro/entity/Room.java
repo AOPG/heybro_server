@@ -37,7 +37,7 @@ public class Room implements Serializable {
     private String roomRate;
 
     /**
-     * 房间类型(随便玩0，比赛1)
+     * 房间类型(打球0，比赛1)
      */
     @Column(name = "room_type")
     private Integer roomType;
@@ -216,9 +216,9 @@ public class Room implements Serializable {
     }
 
     /**
-     * 设置房间类型(随便玩0，比赛1)
+     * 设置房间类型(打球0，比赛1)
      *
-     * @param roomType 房间类型(随便玩0，比赛1)
+     * @param roomType 房间类型(打球0，比赛1)
      */
     public void setRoomType(Integer roomType) {
         this.roomType = roomType;
