@@ -49,4 +49,20 @@ public class UserController {
     public BusinessMessage<JSONObject> userInfo(String username){
         return userService.userInfo(username);
     }
+
+    /**
+     * 上传头像
+     * */
+
+
+    /**
+     * 修改用户信息
+     * */
+    @ResponseBody
+    @RequestMapping("updateUserInfo")
+    public BusinessMessage<JSONObject> updateUserInfo(String userCode,String userNickName,
+                                                      String userPortrait,String userIntro,String userProvince,String userCity,String birthday){
+        return userService.updateUserInfo(userCode,userNickName,userPortrait,userIntro,userProvince,userCity,birthday);
+    }
+
 }

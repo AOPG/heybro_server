@@ -19,7 +19,7 @@ public class Room implements Serializable {
     private String roomName;
 
     /**
-     * 房间人数
+     * 房间人数 
      */
     @Column(name = "room_num")
     private Integer roomNum;
@@ -37,7 +37,7 @@ public class Room implements Serializable {
     private String roomRate;
 
     /**
-     * 房间类型(随便玩0，比赛1)
+     * 房间类型(打球0，比赛1)
      */
     @Column(name = "room_type")
     private Integer roomType;
@@ -153,18 +153,18 @@ public class Room implements Serializable {
     }
 
     /**
-     * 获取房间人数
+     * 获取房间人数 
      *
-     * @return room_num - 房间人数
+     * @return room_num - 房间人数 
      */
     public Integer getRoomNum() {
         return roomNum;
     }
 
     /**
-     * 设置房间人数
+     * 设置房间人数 
      *
-     * @param roomNum 房间人数
+     * @param roomNum 房间人数 
      */
     public void setRoomNum(Integer roomNum) {
         this.roomNum = roomNum;
@@ -207,18 +207,18 @@ public class Room implements Serializable {
     }
 
     /**
-     * 获取房间类型(随便玩0，比赛1)
+     * 获取房间类型(打球0，比赛1)
      *
-     * @return room_type - 房间类型(随便玩0，比赛1)
+     * @return room_type - 房间类型(打球0，比赛1)
      */
     public Integer getRoomType() {
         return roomType;
     }
 
     /**
-     * 设置房间类型(随便玩0，比赛1)
+     * 设置房间类型(打球0，比赛1)
      *
-     * @param roomType 房间类型(随便玩0，比赛1)
+     * @param roomType 房间类型(打球0，比赛1)
      */
     public void setRoomType(Integer roomType) {
         this.roomType = roomType;

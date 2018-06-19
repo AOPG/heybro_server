@@ -72,38 +72,39 @@
         </javaClientGenerator>
 
         <!-- oracle 使用 schema 对应 用户名称空间 mysql 使用 catalog 对应 数据库 -->
-        <table tableName="%"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false">
-            <property name="selectAllOrderByClause" value="true"/>
-            <!-- 模型属性和表字段名字大小写一致 -->
-            <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        <!--<table tableName="%"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false">-->
+            <!--<property name="selectAllOrderByClause" value="true"/>-->
+            <!--&lt;!&ndash; 模型属性和表字段名字大小写一致 &ndash;&gt;-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
 
-            <columnOverride column="create_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
-            <columnOverride column="login_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
-            <columnOverride column="reg_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
-            <columnOverride column="day_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
-            <columnOverride column="auth_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
-            <columnOverride column="apply_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
-            <columnOverride column="update_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
-            <columnOverride column="get_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
-            <columnOverride column="open_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
-            <columnOverride column="recharge_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
-            <columnOverride column="succ_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
-            <columnOverride column="bind_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
-            <!--<columnOverride column="create_date" jdbcType="DATE" javaType="java.time.LocalDate"/>-->
-            <!--<columnOverride column="create_time" jdbcType="TIME" javaType="java.time.LocalTime"/>-->
-        </table>
+            <!--<columnOverride column="create_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>-->
+            <!--<columnOverride column="login_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>-->
+            <!--<columnOverride column="reg_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>-->
+            <!--<columnOverride column="day_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>-->
+            <!--<columnOverride column="auth_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>-->
+            <!--<columnOverride column="apply_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>-->
+            <!--<columnOverride column="update_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>-->
+            <!--<columnOverride column="get_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>-->
+            <!--<columnOverride column="open_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>-->
+            <!--<columnOverride column="recharge_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>-->
+            <!--<columnOverride column="succ_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>-->
+            <!--<columnOverride column="bind_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>-->
+            <!--&lt;!&ndash;<columnOverride column="create_date" jdbcType="DATE" javaType="java.time.LocalDate"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<columnOverride column="create_time" jdbcType="TIME" javaType="java.time.LocalTime"/>&ndash;&gt;-->
+        <!--</table>-->
 
         <!-- oracle 使用 schema 对应 用户名称空间 mysql 使用 catalog 对应 数据库 -->
-        <!--<table tableName="ceg_expenditure_record" domainObjectName="CegExpenditureRecords"-->
-        <!--enableCountByExample="false" enableUpdateByExample="false"-->
-        <!--enableDeleteByExample="false" enableSelectByExample="false">-->
-        <!--<property name="useActualColumnNames" value="true"/>-->
-        <!--<property name="selectAllOrderByClause" value="true"/>-->
-        <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--</table>-->
+        <table tableName="average_user" domainObjectName="AverageUser"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false">
+        <property name="useActualColumnNames" value="true"/>
+        <property name="selectAllOrderByClause" value="true"/>
+         <property name="useActualColumnNames" value="false"/>
+        <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
     </context>
 </generatorConfiguration>

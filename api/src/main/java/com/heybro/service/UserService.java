@@ -13,8 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.io.IOException;
+import java.util.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -52,7 +54,7 @@ public class UserService {
                 user.setUserName(username);
                 user.setUserPass(encPassword);
                 user.setUserCode(username);
-                LocalDateTime createTime = LocalDateTime.now();
+                Date createTime = new Date();
                 user.setCreateTime(createTime);
 //                user.setClientId(UUID.randomUUID().toString().replace("-", ""));
 //                user.setClientSecret(UUID.randomUUID().toString().replace("-", ""));
@@ -119,5 +121,39 @@ public class UserService {
             e.printStackTrace();
         }
         return builder.build();
+    }
+
+    /**
+     * 根据userCode 修改用户信息
+     * */
+    public BusinessMessage<JSONObject> updateUserInfo(String userCode, String userNickName, String userPortrait,
+                                                      String userIntro, String userProvince, String userCity, String birthday) {
+        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try {
+            AverageUser averageUser = new AverageUser();
+            averageUser.setUserCode(userCode);
+            averageUser.setUserNickname(userNickName);
+            averageUser.setUserPortrait(userPortrait);
+            averageUser.setUserIntro(userIntro);
+            averageUser.setUserProvince(userProvince);
+            averageUser.setUserCity(userCity);
+            if (birthday!=null){
+                averageUser.setBirthday(new Date(Long.parseLong(birthday)));
+            }
+            Example averageUserExample = new Example(AverageUser.class);
+            Example.Criteria criteria = averageUserExample.createCriteria();
+            criteria.andEqualTo("userCode",userCode);
+            averageUserMapper.updateByExampleSelective(averageUser,averageUserExample);
+            builder.code("200");
+            builder.success(true);
+            builder.msg("修改成功！");
+        }catch (Exception e){
+            builder.code("500");
+            builder.msg("服务器异常，修改失败");
+            e.printStackTrace();
+        }
+        return builder.build();
+
     }
 }

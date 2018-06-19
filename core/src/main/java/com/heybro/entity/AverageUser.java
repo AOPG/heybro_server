@@ -1,7 +1,7 @@
 package com.heybro.entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "average_user")
@@ -119,9 +119,14 @@ public class AverageUser implements Serializable {
      * 创建时间
      */
     @Column(name = "create_time")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     private String enable;
+
+    /**
+     * 生日
+     */
+    private Date birthday;
 
     private static final long serialVersionUID = 1L;
 
@@ -454,7 +459,7 @@ public class AverageUser implements Serializable {
      *
      * @return create_time - 创建时间
      */
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
@@ -463,7 +468,7 @@ public class AverageUser implements Serializable {
      *
      * @param createTime 创建时间
      */
-    public void setCreateTime(LocalDateTime createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
@@ -479,6 +484,24 @@ public class AverageUser implements Serializable {
      */
     public void setEnable(String enable) {
         this.enable = enable == null ? null : enable.trim();
+    }
+
+    /**
+     * 获取生日
+     *
+     * @return birthday - 生日
+     */
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    /**
+     * 设置生日
+     *
+     * @param birthday 生日
+     */
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     @Override
@@ -507,6 +530,7 @@ public class AverageUser implements Serializable {
         sb.append(", userNickname=").append(userNickname);
         sb.append(", createTime=").append(createTime);
         sb.append(", enable=").append(enable);
+        sb.append(", birthday=").append(birthday);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
