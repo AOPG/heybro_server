@@ -97,7 +97,7 @@
         <!--</table>-->
 
         <!-- oracle 使用 schema 对应 用户名称空间 mysql 使用 catalog 对应 数据库 -->
-        <table tableName="average_user" domainObjectName="AverageUser"
+        <table tableName="room" domainObjectName="Room"
         enableCountByExample="false" enableUpdateByExample="false"
         enableDeleteByExample="false" enableSelectByExample="false">
         <property name="useActualColumnNames" value="true"/>

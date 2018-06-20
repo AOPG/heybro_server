@@ -22,7 +22,7 @@ public class BasketRoomService {
     /**
      * 创建房间
      */
-    public BusinessMessage<JSONObject> createBasketRoom(String roomName,int type,String mode,String rate,int num,String password,String userCode) {
+    public BusinessMessage<JSONObject> createBasketRoom(String roomName,int type,String mode,int rateLow,int rateHigh,int num,String password,String userCode) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
         try{
@@ -30,7 +30,8 @@ public class BasketRoomService {
             basketRoom.setRoomName(roomName);
             basketRoom.setRoomType(type);
             basketRoom.setRoomMode(mode);
-            basketRoom.setRoomRate(rate);
+            basketRoom.setRoomRateLow(rateLow);
+            basketRoom.setRoomRateHigh(rateHigh);
             basketRoom.setRoomNum(num);
             if(password != null){
                 basketRoom.setRoomPass(password);

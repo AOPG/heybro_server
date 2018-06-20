@@ -31,10 +31,16 @@ public class Room implements Serializable {
     private String roomMode;
 
     /**
-     * 房间等级限制
+     * 最低等级（不限制为0）
      */
-    @Column(name = "room_rate")
-    private String roomRate;
+    @Column(name = "room_rate_low")
+    private Integer roomRateLow;
+
+    /**
+     * 最高等级（不限制为0）
+     */
+    @Column(name = "room_rate_high")
+    private Integer roomRateHigh;
 
     /**
      * 房间类型(打球0，比赛1)
@@ -189,21 +195,39 @@ public class Room implements Serializable {
     }
 
     /**
-     * 获取房间等级限制
+     * 获取最低等级（不限制为0）
      *
-     * @return room_rate - 房间等级限制
+     * @return room_rate_low - 最低等级（不限制为0）
      */
-    public String getRoomRate() {
-        return roomRate;
+    public Integer getRoomRateLow() {
+        return roomRateLow;
     }
 
     /**
-     * 设置房间等级限制
+     * 设置最低等级（不限制为0）
      *
-     * @param roomRate 房间等级限制
+     * @param roomRateLow 最低等级（不限制为0）
      */
-    public void setRoomRate(String roomRate) {
-        this.roomRate = roomRate == null ? null : roomRate.trim();
+    public void setRoomRateLow(Integer roomRateLow) {
+        this.roomRateLow = roomRateLow;
+    }
+
+    /**
+     * 获取最高等级（不限制为0）
+     *
+     * @return room_rate_high - 最高等级（不限制为0）
+     */
+    public Integer getRoomRateHigh() {
+        return roomRateHigh;
+    }
+
+    /**
+     * 设置最高等级（不限制为0）
+     *
+     * @param roomRateHigh 最高等级（不限制为0）
+     */
+    public void setRoomRateHigh(Integer roomRateHigh) {
+        this.roomRateHigh = roomRateHigh;
     }
 
     /**
@@ -450,7 +474,8 @@ public class Room implements Serializable {
         sb.append(", roomName=").append(roomName);
         sb.append(", roomNum=").append(roomNum);
         sb.append(", roomMode=").append(roomMode);
-        sb.append(", roomRate=").append(roomRate);
+        sb.append(", roomRateLow=").append(roomRateLow);
+        sb.append(", roomRateHigh=").append(roomRateHigh);
         sb.append(", roomType=").append(roomType);
         sb.append(", roomDate=").append(roomDate);
         sb.append(", roomInfoId=").append(roomInfoId);
