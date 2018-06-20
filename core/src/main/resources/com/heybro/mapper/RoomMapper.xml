@@ -32,4 +32,18 @@
     win_lose, room_pass_set, room_pass, room_peo, room_lng, room_lat, master_code, room_city, 
     room_province, room_area
   </sql>
+
+  <select id="RoomInfoList"   resultType="java.util.HashMap">
+    SELECT r.room_Id,r.room_name,r.room_num,r.room_peo
+    from room r
+    where r.room_Id != 0
+  </select>
+
+  <select id="RoomDetailInfoList"   resultType="java.util.HashMap">
+    SELECT a.user_name
+    from room_info i
+         LEFT JOIN average_user a on  i.user_code = a.user_code
+         where i.room_id = #{roomId}
+  </select>
+
 </mapper>
