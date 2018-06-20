@@ -141,6 +141,34 @@ public class RoomService {
         return builder.build();
     }
 
+    /**
+     *
+     * 查询用户和房间详细信息
+     * */
+
+    public BusinessMessage<com.alibaba.fastjson.JSONObject> roomAndUserInfo(Integer roomId) {
+        BusinessMessageBuilder<com.alibaba.fastjson.JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try {
+
+            List<HashMap> roomAndUserList = roomMapper.RoomUserAndRoomInfo(roomId);
+            if (null != roomAndUserList && roomAndUserList.size() > 0) {
+                JSONObject json  = new JSONObject();
+                JSONArray jsonArray = JSONArray.parseArray(JSONArray.toJSONString(roomAndUserList));
+                json.put("list", jsonArray);
+                builder.data(json);
+                builder.success(true);
+            } else{
+                builder.msg("加载房间信息失败！");
+            }
+        }catch (Exception e){
+            builder.msg("服务器异常");
+            e.printStackTrace();
+        }
+        return builder.build();
+    }
+
+
 
 
 }

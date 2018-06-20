@@ -38,5 +38,14 @@ public class RoomController {
         return roomService.roomDetailInfo(roomId);
     }
 
+    /**
+     * 查询用户和房间详细信息
+     */
+    @ResponseBody
+    @RequestMapping("roomAndUserInfo")
+    public BusinessMessage<JSONObject> roomAndUserInfo(Integer roomId){
+        return roomService.roomAndUserInfo(roomId);
+    }
+
 
 }

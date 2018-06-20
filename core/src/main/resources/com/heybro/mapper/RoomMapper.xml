@@ -47,4 +47,12 @@
          where i.room_id = #{roomId}
   </select>
 
+  <select id="RoomUserAndRoomInfo" resultType="java.util.HashMap">
+    SELECT a.user_code,a.user_name,a.user_portrait,r.room_name,r.room_mode,r.room_pass
+    from room r
+    LEFT JOIN room_info ri on r.room_Id = ri.room_id
+    LEFT JOIN average_user a on ri.user_code = a.user_code
+    where r.room_Id = #{roomId}
+  </select>
+
 </mapper>
