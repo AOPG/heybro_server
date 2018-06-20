@@ -43,7 +43,6 @@ public class ImgServiceImpl {
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
     /**
      * upload image save mongodb
@@ -57,7 +56,7 @@ public class ImgServiceImpl {
         try {
             //获取文件全名
             String fileId = this.saveImg(image_data);
-            String serverImgFront = "/android/img/show?id=" + fileId;
+            String serverImgFront = "img/show?id=" + fileId;
             JSONObject data = new JSONObject();
             data.put("imgUrl", serverImgFront);
             builder.code("200");
