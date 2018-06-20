@@ -34,7 +34,7 @@ public class RoomController {
      */
     @ResponseBody
     @RequestMapping("BallRoomDetailedInfo")
-    public BusinessMessage<JSONObject> roomDetailInfo(String roomId){
+    public BusinessMessage<JSONObject> roomDetailInfo(Integer roomId){
         return roomService.roomDetailInfo(roomId);
     }
 

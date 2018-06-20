@@ -31,12 +31,12 @@ public class RoomService {
      * 房间信息详情
      *
      */
-    public BusinessMessage<JSONObject> roomDetailInfo(String roomId) {
+    public BusinessMessage<JSONObject> roomDetailInfo(Integer roomId) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
         try {
 
-            List<HashMap> roomDetailInfoList = roomMapper.RoomDetailInfoList(1);
+            List<HashMap> roomDetailInfoList = roomMapper.RoomDetailInfoList(roomId);
             if (null != roomDetailInfoList && roomDetailInfoList.size() > 0) {
                 JSONObject json  = new JSONObject();
                 JSONArray jsonArray = new JSONArray();
