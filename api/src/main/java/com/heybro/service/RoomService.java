@@ -49,6 +49,18 @@ public class RoomService {
                         item.put("userName","");
                     }
 
+                    if(roomDetailInfoList.get(i).get("user_portrait")!=null){
+                        item.put("userPortrait",roomDetailInfoList.get(i).get("user_portrait").toString());
+                    }else{
+                        item.put("userPortrait","");
+                    }
+
+                    if(roomDetailInfoList.get(i).get("user_Intro")!=null){
+                        item.put("userIntro",roomDetailInfoList.get(i).get("user_Intro").toString());
+                    }else{
+                        item.put("userIntro","");
+                    }
+
                     jsonArray.add(item);
                 }
                 json.put("list", jsonArray);

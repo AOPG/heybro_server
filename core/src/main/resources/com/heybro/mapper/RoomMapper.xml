@@ -41,7 +41,7 @@
   </select>
 
   <select id="RoomDetailInfoList" resultType="java.util.HashMap">
-    SELECT a.user_name
+    SELECT a.user_name,a.user_portrait,a.user_Intro
     from room_info i
          LEFT JOIN average_user a on  i.user_code = a.user_code
          where i.room_id = #{roomId}
