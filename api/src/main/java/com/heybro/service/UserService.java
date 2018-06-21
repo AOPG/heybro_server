@@ -8,7 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heybro.domain.BusinessMessage;
 import com.heybro.domain.BusinessMessageBuilder;
 import com.heybro.entity.AverageUser;
+import com.heybro.entity.UserInfo;
 import com.heybro.mapper.AverageUserMapper;
+import com.heybro.mapper.UserInfoMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,6 +34,9 @@ public class UserService {
 
     @Autowired
     private AverageUserMapper averageUserMapper;
+
+    @Autowired
+    private UserInfoMapper userInfoMapper;
 
     /**
      * 注册
@@ -82,11 +87,19 @@ public class UserService {
             AverageUser user = averageUserMapper.selectOne(new AverageUser() {{
                 setUserName(username);
             }});
+
             user.setUserPass("");
             if (user!=null){
+                String userCode =user.getUserCode();
+                UserInfo userInfo = userInfoMapper.selectOne(new UserInfo(){{
+                    setUserCode(userCode);
+                }});
+                JSONObject jsonUser = JSONObject.parseObject(JSONObject.toJSONString(user));
+                JSONObject jsonInfo = JSONObject.parseObject(JSONObject.toJSONString(userInfo));
+                jsonUser.put("userInfo",jsonInfo);
                 builder.msg("加载个人信息成功！");
                 builder.success(true);
-                builder.data(JSONObject.parseObject(JSONObject.toJSONString(user)));
+                builder.data(jsonUser);
             }else {
                 builder.msg("加载个人信息失败！");
             }
