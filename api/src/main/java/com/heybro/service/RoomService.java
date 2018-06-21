@@ -192,6 +192,7 @@ public class RoomService {
                     JSONObject json  = new JSONObject();
                     JSONArray jsonArray = JSONArray.parseArray(JSONArray.toJSONString(roomDetailInfoList));
                     json.put("list", jsonArray);
+                    json.put("roomMode",room.getRoomMode());
                     json.put("roomId",room.getRoomId());
                     json.put("roomName",room.getRoomName());
                     json.put("roomPass",room.getRoomPass());
