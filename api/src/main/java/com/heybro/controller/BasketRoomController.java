@@ -21,7 +21,7 @@ public class BasketRoomController {
 
     @ResponseBody
     @RequestMapping("createRoom")
-    public BusinessMessage<JSONObject> createRoom(String roomName,int type,String mode,int rateLow,int rateHigh,int num,String password,String userCode){
-        return basketRoomService.createBasketRoom(roomName,type,mode,rateLow,rateHigh,num,password,userCode);
+    public BusinessMessage<JSONObject> createRoom(String roomId,String roomName,int type,String mode,int rateLow,int rateHigh,int num,String password,String userCode){
+        return basketRoomService.createBasketRoom(roomId,roomName,type,mode,rateLow,rateHigh,num,password,userCode);
     }
 }

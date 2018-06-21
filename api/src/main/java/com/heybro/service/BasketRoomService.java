@@ -22,11 +22,12 @@ public class BasketRoomService {
     /**
      * 创建房间
      */
-    public BusinessMessage<JSONObject> createBasketRoom(String roomName,int type,String mode,int rateLow,int rateHigh,int num,String password,String userCode) {
+    public BusinessMessage<JSONObject> createBasketRoom(String roomId,String roomName,int type,String mode,int rateLow,int rateHigh,int num,String password,String userCode) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
         try{
             Room basketRoom = new Room();
+            basketRoom.setRoomId(Integer.parseInt(roomId));
             basketRoom.setRoomName(roomName);
             basketRoom.setRoomType(type);
             basketRoom.setRoomMode(mode);
