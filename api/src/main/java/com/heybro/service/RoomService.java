@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import com.heybro.domain.BusinessMessage;
 import com.heybro.domain.BusinessMessageBuilder;
+import com.heybro.entity.Room;
 import com.heybro.mapper.RoomMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,14 +151,24 @@ public class RoomService {
         BusinessMessageBuilder<com.alibaba.fastjson.JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
         try {
-
-            List<HashMap> roomAndUserList = roomMapper.RoomUserAndRoomInfo(roomId);
-            if (null != roomAndUserList && roomAndUserList.size() > 0) {
-                JSONObject json  = new JSONObject();
-                JSONArray jsonArray = JSONArray.parseArray(JSONArray.toJSONString(roomAndUserList));
-                json.put("list", jsonArray);
-                builder.data(json);
-                builder.success(true);
+            Room room = new Room();
+            room.setRoomId(roomId);
+            room = roomMapper.selectOne(room);
+            List<HashMap> roomDetailInfoList = roomMapper.RoomDetailInfoList(roomId);
+            if (null != roomDetailInfoList && roomDetailInfoList.size() > 0) {
+                if (null!=room.getRoomType()&&room.getRoomType()!=2){
+                    JSONObject json  = new JSONObject();
+                    JSONArray jsonArray = JSONArray.parseArray(JSONArray.toJSONString(roomDetailInfoList));
+                    json.put("list", jsonArray);
+                    json.put("roomId",room.getRoomId());
+                    json.put("roomName",room.getRoomName());
+                    json.put("roomPass",room.getRoomPass());
+                    json.put("roomMasterCode",room.getMasterCode());
+                    builder.data(json);
+                    builder.success(true);
+                }else {
+                    builder.msg("该房间不存在！");
+                }
             } else{
                 builder.msg("加载房间信息失败！");
             }

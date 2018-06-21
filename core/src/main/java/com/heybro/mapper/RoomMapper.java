@@ -19,9 +19,4 @@ public interface RoomMapper extends Mapper<Room> {
      */
     List<HashMap> RoomDetailInfoList(@Param("roomId") Integer roomId);
 
-
-     /**
-      * 查询用户和房间详细信息
-      * */
-     List<HashMap> RoomUserAndRoomInfo(@Param("roomId") Integer roomId);
 }
