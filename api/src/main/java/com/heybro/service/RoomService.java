@@ -123,6 +123,14 @@ public class RoomService {
                     }else{
                         item.put("roomPeo","");
                     }
+
+
+                    if(RoomList.get(i).get("room_pass")!=null){
+                        item.put("roomPass",RoomList.get(i).get("room_pass").toString());
+                    }else{
+                        item.put("roomPass","");
+                    }
+
                     jsonArray.add(item);
                 }
                 json.put("list", jsonArray);

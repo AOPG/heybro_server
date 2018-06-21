@@ -35,7 +35,7 @@
   </sql>
 
   <select id="RoomInfoList" resultType="java.util.HashMap">
-    SELECT r.room_Id,r.room_name,r.room_num,r.room_peo
+    SELECT r.room_Id,r.room_name,r.room_num,r.room_peo,r.room_pass
     from room r
     where r.room_Id != 0
   </select>
