@@ -55,12 +55,36 @@ public class RoomService {
                     }else{
                         item.put("userPortrait","");
                     }
-
                     if(roomDetailInfoList.get(i).get("user_Intro")!=null){
                         item.put("userIntro",roomDetailInfoList.get(i).get("user_Intro").toString());
                     }else{
                         item.put("userIntro","");
                     }
+
+                    if(roomDetailInfoList.get(i).get("user_nickname")!=null){
+                        item.put("userNickname",roomDetailInfoList.get(i).get("user_nickname").toString());
+                    }else{
+                        item.put("userNickname","");
+                    }
+
+                    if(roomDetailInfoList.get(i).get("room_name")!=null){
+                        item.put("roomName",roomDetailInfoList.get(i).get("room_name").toString());
+                    }else{
+                        item.put("roomName","");
+                    }
+
+                    if(roomDetailInfoList.get(i).get("room_num")!=null){
+                        item.put("roomNum",roomDetailInfoList.get(i).get("room_num").toString());
+                    }else{
+                        item.put("roomNum","");
+                    }
+
+                    if(roomDetailInfoList.get(i).get("room_peo")!=null){
+                        item.put("roomPeo",roomDetailInfoList.get(i).get("room_peo").toString());
+                    }else{
+                        item.put("roomPeo","");
+                    }
+
 
                     jsonArray.add(item);
                 }
