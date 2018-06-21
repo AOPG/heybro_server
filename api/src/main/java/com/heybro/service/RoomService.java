@@ -212,7 +212,30 @@ public class RoomService {
         return builder.build();
     }
 
-
-
-
+    /**
+     * 单个房间信息
+     * */
+    public BusinessMessage<JSONObject> singleRoomInfo(Integer roomId) {
+        BusinessMessageBuilder<com.alibaba.fastjson.JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        builder.code("500");
+        try {
+            Room room = roomMapper.selectOne(new Room(){{
+                setRoomId(roomId);
+            }});
+            if (null!=room){
+                JSONObject roomInfo = JSONObject.parseObject(JSONObject.toJSONString(room));
+                builder.data(roomInfo);
+                builder.success(true);
+                builder.msg("加载成功!");
+                builder.code("200");
+            }else {
+                builder.msg("无该房间信息!");
+            }
+        }catch (Exception e){
+            builder.msg("服务器异常");
+            e.printStackTrace();
+        }
+        return builder.build();
+    }
 }
