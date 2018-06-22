@@ -20,13 +20,23 @@ public class RoomController {
     RoomService roomService;
 
     /**
-     * 房间总信息
+     * 打球房间总信息
      */
     @ResponseBody
     @RequestMapping("BallRoomInfo")
     public BusinessMessage<JSONObject> roomInfo(){
         return roomService.roomInfo();
     }
+
+    /**
+     * 比赛房间总信息
+     */
+    @ResponseBody
+    @RequestMapping("BasketBallRoomInfo")
+    public BusinessMessage<JSONObject> basketBallRoomInfo(){
+        return roomService.basketBallRoomInfo();
+    }
+
 
 
     /**

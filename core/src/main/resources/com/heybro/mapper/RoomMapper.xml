@@ -37,7 +37,8 @@
   <select id="RoomInfoList" resultType="java.util.HashMap">
     SELECT r.room_Id,r.room_name,r.room_num,r.room_peo,r.room_pass
     from room r
-    where r.room_Id != 0
+    where r.room_Id != 0 and r.room_type = 0
+    order by room_date desc
   </select>
 
   <select id="RoomDetailInfoList" resultType="java.util.HashMap">
@@ -46,6 +47,13 @@
          LEFT JOIN average_user a on  i.user_code = a.user_code
          LEFT JOIN room r on i.room_id = r.room_Id
          where i.room_id = #{roomId}
+  </select>
+
+  <select id="BasketBallRoomInfoList" resultType="java.util.HashMap">
+    SELECT r.room_Id,r.room_name,r.room_num,r.room_peo,r.room_pass
+    from room r
+    where r.room_Id != 0 and r.room_type = 1
+    order by room_date desc
   </select>
 
 </mapper>
