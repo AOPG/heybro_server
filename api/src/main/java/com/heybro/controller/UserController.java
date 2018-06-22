@@ -65,4 +65,13 @@ public class UserController {
         return userService.updateUserInfo(userCode,userNickName,userPortrait,userIntro,userProvince,userCity,birthday);
     }
 
+    /**
+     * 根据userCode获取个人信息
+     * */
+    @ResponseBody
+    @RequestMapping("userInfoByCode")
+    public BusinessMessage<JSONObject> userInfoByCode(String userCode){
+        return userService.userInfoByCode(userCode);
+    }
+
 }

@@ -169,4 +169,38 @@ public class UserService {
         return builder.build();
 
     }
+
+    /**
+     * 根据userCode获取用户信息
+     * */
+
+    public BusinessMessage<JSONObject> userInfoByCode(String userCode) {
+        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try {
+            AverageUser user = averageUserMapper.selectOne(new AverageUser() {{
+                setUserCode(userCode);
+            }});
+
+            user.setUserPass("");
+            user.setUserName("");
+            if (user!=null){
+                UserInfo userInfo = userInfoMapper.selectOne(new UserInfo(){{
+                    setUserCode(userCode);
+                }});
+                JSONObject jsonUser = JSONObject.parseObject(JSONObject.toJSONString(user));
+                JSONObject jsonInfo = JSONObject.parseObject(JSONObject.toJSONString(userInfo));
+                jsonUser.put("userInfo",jsonInfo);
+                builder.msg("加载个人信息成功！");
+                builder.success(true);
+                builder.data(jsonUser);
+            }else {
+                builder.msg("加载个人信息失败！");
+            }
+        }catch (Exception e){
+            builder.msg("服务器异常");
+            e.printStackTrace();
+        }
+        return builder.build();
+    }
 }
