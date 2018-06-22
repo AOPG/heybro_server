@@ -121,9 +121,61 @@ public class RoomService {
     }
 
 
+
     /**
      *
-     * 房间信息
+     * 加载房间信息
+     *
+     */
+    public JSONObject loadingRoom(List<HashMap> RoomList){
+        JSONObject json  = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0;i<RoomList.size();i++) {
+            JSONObject item = new JSONObject();
+
+            if(RoomList.get(i).get("room_Id")!=null){
+                item.put("roomId",RoomList.get(i).get("room_Id").toString());
+            }else{
+                item.put("roomId","");
+            }
+
+            if(RoomList.get(i).get("room_name")!=null){
+                item.put("roomName",RoomList.get(i).get("room_name").toString());
+            }else{
+                item.put("roomName","");
+            }
+
+            if(RoomList.get(i).get("room_num")!=null){
+                item.put("roomNum",RoomList.get(i).get("room_num").toString());
+            }else{
+                item.put("roomNum","");
+            }
+
+            if(RoomList.get(i).get("room_peo")!=null){
+                item.put("roomPeo",RoomList.get(i).get("room_peo").toString());
+            }else{
+                item.put("roomPeo","");
+            }
+
+
+            if(RoomList.get(i).get("room_pass")!=null){
+                item.put("roomPass",RoomList.get(i).get("room_pass").toString());
+            }else{
+                item.put("roomPass","");
+            }
+
+            jsonArray.add(item);
+        }
+        json.put("list", jsonArray);
+
+
+        return json;
+
+    }
+
+    /**
+     *
+     * 打球房间信息
      *
      */
 
@@ -134,51 +186,13 @@ public class RoomService {
 
             List<HashMap> RoomList = roomMapper.RoomInfoList();
             if (null != RoomList && RoomList.size() > 0) {
-                JSONObject json  = new JSONObject();
-                JSONArray jsonArray = new JSONArray();
-                for (int i = 0;i<RoomList.size();i++) {
-                    JSONObject item = new JSONObject();
 
-                    if(RoomList.get(i).get("room_Id")!=null){
-                        item.put("roomId",RoomList.get(i).get("room_Id").toString());
-                    }else{
-                        item.put("roomId","");
-                    }
-
-                    if(RoomList.get(i).get("room_name")!=null){
-                        item.put("roomName",RoomList.get(i).get("room_name").toString());
-                    }else{
-                        item.put("roomName","");
-                    }
-
-                    if(RoomList.get(i).get("room_num")!=null){
-                        item.put("roomNum",RoomList.get(i).get("room_num").toString());
-                    }else{
-                        item.put("roomNum","");
-                    }
-
-                    if(RoomList.get(i).get("room_peo")!=null){
-                        item.put("roomPeo",RoomList.get(i).get("room_peo").toString());
-                    }else{
-                        item.put("roomPeo","");
-                    }
-
-
-                    if(RoomList.get(i).get("room_pass")!=null){
-                        item.put("roomPass",RoomList.get(i).get("room_pass").toString());
-                    }else{
-                        item.put("roomPass","");
-                    }
-
-                    jsonArray.add(item);
-                }
-                json.put("list", jsonArray);
-                builder.data(json);
+                builder.data(loadingRoom(RoomList));
                 builder.success(true);
 
             }
             else{
-                builder.msg("加载房间信息失败！");
+                builder.msg("加载打球房间信息失败！");
             }
 
 
@@ -188,6 +202,39 @@ public class RoomService {
         }
         return builder.build();
     }
+
+
+
+    /**
+     *
+     * 比赛房间信息
+     *
+     */
+
+    public BusinessMessage<com.alibaba.fastjson.JSONObject> basketBallRoomInfo() {
+        BusinessMessageBuilder<com.alibaba.fastjson.JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try {
+
+            List<HashMap> RoomList = roomMapper.BasketBallRoomInfoList();
+            if (null != RoomList && RoomList.size() > 0) {
+
+                builder.data(loadingRoom(RoomList));
+                builder.success(true);
+
+            }
+            else{
+                builder.msg("加载比赛房间信息失败！");
+            }
+
+
+        }catch (Exception e){
+            builder.msg("服务器异常");
+            e.printStackTrace();
+        }
+        return builder.build();
+    }
+
 
     /**
      *
