@@ -39,38 +39,41 @@ public class BasketRoomService {
 
             userInfo.setUserCode(userCode);
             userInfo = userInfoMapper.selectOne(userInfo);
-            userInfo.setRoomId(Integer.parseInt(roomId));
+            if(userInfo.getRoomId() ==0||userInfo.getRoomId() == null) {
+                userInfo.setRoomId(Integer.parseInt(roomId));
+                basketRoom.setRoomId(Integer.parseInt(roomId));
+                basketRoom.setRoomName(roomName);
+                basketRoom.setRoomType(type);
+                basketRoom.setRoomMode(mode);
+                basketRoom.setRoomRateLow(rateLow);
+                basketRoom.setRoomRateHigh(rateHigh);
+                basketRoom.setRoomNum(num);
+                if (password != null) {
+                    basketRoom.setRoomPass(password);
+                    basketRoom.setRoomPassSet(1);
+                } else {
+                    basketRoom.setRoomPassSet(0);
+                }
+                basketRoom.setMasterCode(userCode);
 
-            basketRoom.setRoomId(Integer.parseInt(roomId));
-            basketRoom.setRoomName(roomName);
-            basketRoom.setRoomType(type);
-            basketRoom.setRoomMode(mode);
-            basketRoom.setRoomRateLow(rateLow);
-            basketRoom.setRoomRateHigh(rateHigh);
-            basketRoom.setRoomNum(num);
-            if(password != null){
-                basketRoom.setRoomPass(password);
-                basketRoom.setRoomPassSet(1);
+                roomInfo.setUserCode(userCode);
+                roomInfo.setRoomId(Integer.parseInt(roomId));
+                userInfoMapper.updateByPrimaryKey(userInfo);
+                roomMapper.insert(basketRoom);
+                roomInfoMapper.insert(roomInfo);
+                if (basketRoom != null) {
+                    JSONObject json = new JSONObject();
+                    json.put("room", basketRoom);
+                    json.put("roominfo", roomInfo);
+                    json.put("master", userInfo);
+                    builder.data(json);
+                    builder.success(true);
+                    builder.msg("创建成功！");
+                } else {
+                    builder.msg("创建失败！");
+                }
             }else{
-                basketRoom.setRoomPassSet(0);
-            }
-            basketRoom.setMasterCode(userCode);
-
-            roomInfo.setUserCode(userCode);
-            roomInfo.setRoomId(Integer.parseInt(roomId));
-            userInfoMapper.updateByPrimaryKey(userInfo);
-            roomMapper.insert(basketRoom);
-            roomInfoMapper.insert(roomInfo);
-            if (basketRoom != null){
-                JSONObject json = new JSONObject();
-                json.put("room",basketRoom);
-                json.put("roominfo",roomInfo);
-                json.put("master",userInfo);
-                builder.data(json);
-                builder.success(true);
-                builder.msg("创建成功！");
-            }else {
-                builder.msg("创建失败！");
+                builder.msg("已经加入或创建一个房间，无需创建");
             }
         }catch (Exception e){
             e.printStackTrace();
