@@ -7,11 +7,18 @@ import com.alibaba.fastjson.JSONObject;
 
 import com.heybro.domain.BusinessMessage;
 import com.heybro.domain.BusinessMessageBuilder;
+import com.heybro.entity.AverageUser;
 import com.heybro.entity.Room;
+import com.heybro.entity.RoomInfo;
+import com.heybro.entity.UserInfo;
+import com.heybro.mapper.AverageUserMapper;
+import com.heybro.mapper.RoomInfoMapper;
 import com.heybro.mapper.RoomMapper;
+import com.heybro.mapper.UserInfoMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +33,14 @@ public class RoomService {
     @Autowired
     RoomMapper roomMapper;
 
+    @Autowired
+    AverageUserMapper averageUserMapper;
+
+    @Autowired
+    UserInfoMapper userInfoMapper;
+
+    @Autowired
+    RoomInfoMapper roomInfoMapper;
 
     /**
      *
@@ -232,6 +247,42 @@ public class RoomService {
             }else {
                 builder.msg("无该房间信息!");
             }
+        }catch (Exception e){
+            builder.msg("服务器异常");
+            e.printStackTrace();
+        }
+        return builder.build();
+    }
+
+    /**
+     * 退出房间
+     * */
+    @Transactional
+    public BusinessMessage<JSONObject> exitRoom(Integer roomId,String userCode) {
+        BusinessMessageBuilder<com.alibaba.fastjson.JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        builder.code("500");
+        try {
+            Room room = roomMapper.selectOne(new Room(){{
+                setRoomId(roomId);
+            }});
+            if (userCode.equals(room.getMasterCode())){
+                room.setRoomType(2);
+                roomMapper.updateByPrimaryKey(room);
+
+            }
+            UserInfo userInfo = userInfoMapper.selectOne(new UserInfo(){{
+                setUserCode(userCode);
+            }});
+            userInfo.setRoomId(0);
+            userInfoMapper.updateByPrimaryKey(userInfo);
+            RoomInfo roomInfo = roomInfoMapper.selectOne(new RoomInfo(){{
+                setUserCode(userCode);
+            }});
+            roomInfoMapper.delete(roomInfo);
+            builder.code("200");
+            builder.msg("退出成功！");
+            builder.success(true);
         }catch (Exception e){
             builder.msg("服务器异常");
             e.printStackTrace();

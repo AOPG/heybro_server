@@ -57,5 +57,14 @@ public class RoomController {
         return roomService.singleRoomInfo(roomId);
     }
 
+    /**
+     * 退出房间
+     *
+     * */
+    @ResponseBody
+    @RequestMapping("exitRoom")
+    public BusinessMessage<JSONObject> exitRoom(Integer roomId,String userCode){
+        return roomService.exitRoom(roomId,userCode);
+    }
 
 }
