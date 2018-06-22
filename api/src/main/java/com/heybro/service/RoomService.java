@@ -315,8 +315,8 @@ public class RoomService {
             }});
             if (userCode.equals(room.getMasterCode())){
                 room.setRoomType(2);
+                room.setRoomPeo(room.getRoomPeo()-1);
                 roomMapper.updateByPrimaryKey(room);
-
             }
             UserInfo userInfo = userInfoMapper.selectOne(new UserInfo(){{
                 setUserCode(userCode);
