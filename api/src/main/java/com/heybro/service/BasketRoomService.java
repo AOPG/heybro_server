@@ -48,6 +48,7 @@ public class BasketRoomService {
                 basketRoom.setRoomRateLow(rateLow);
                 basketRoom.setRoomRateHigh(rateHigh);
                 basketRoom.setRoomNum(num);
+                basketRoom.setRoomPeo(1);
                 if (password != null) {
                     basketRoom.setRoomPass(password);
                     basketRoom.setRoomPassSet(1);
