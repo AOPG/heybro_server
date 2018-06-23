@@ -91,7 +91,7 @@ public class BasketRoomService {
      * 搜索房间
      * @return
      */
-    public BusinessMessage<JSONObject> searchAllRoom() {
+    public BusinessMessage<JSONObject> searchAllRoom(String userCode) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
         try{
