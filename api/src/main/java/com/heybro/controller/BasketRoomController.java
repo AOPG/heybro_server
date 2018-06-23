@@ -29,7 +29,7 @@ public class BasketRoomController {
     //搜索房间
     @ResponseBody
     @RequestMapping("searchAllRoom")
-    public BusinessMessage<JSONObject> searchAllRoom(String userCode){
-        return basketRoomService.searchAllRoom(userCode);
+    public BusinessMessage<JSONObject> searchAllRoom(){
+        return basketRoomService.searchAllRoom();
     }
 }
