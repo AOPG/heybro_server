@@ -192,8 +192,8 @@ public class RoomService {
         try {
 
             RoomInfo roomInfo = new RoomInfo();
-            roomInfo.setUserCode("777777");
-            roomInfo.setRoomId(26998403);
+            roomInfo.setUserCode(UserCode);
+            roomInfo.setRoomId(RoomId);
 
             //在房间详情中插入  房间id 用户code
 
@@ -201,11 +201,11 @@ public class RoomService {
 
             //在用户详情表插入 对应用户的 用户code
 
-            userInfoMapper.updateRoomByUsercode("777777",26998403);
+            userInfoMapper.updateRoomByUsercode(UserCode,RoomId);
 
             //当某一个用户进入房间后 房间已有的人数加一
 
-            roomMapper.updateRoomNumByRoomId(26998403);
+            roomMapper.updateRoomNumByRoomId(RoomId);
 
 
             builder.msg("加入讨论组成功");
