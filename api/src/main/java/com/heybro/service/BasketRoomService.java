@@ -13,6 +13,10 @@ import com.heybro.mapper.UserInfoMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by 壑过忘川 on 2018/6/19.
  * 创建房间
@@ -75,6 +79,32 @@ public class BasketRoomService {
                 }
             }else{
                 builder.msg("已经加入或创建一个房间，无需创建");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            builder.msg("服务器异常！");
+        }
+        return builder.build();
+    }
+
+    /**
+     * 搜索房间
+     * @return
+     */
+    public BusinessMessage<JSONObject> searchAllRoom() {
+        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try{
+            List<Room> roomList = new ArrayList<Room>();
+            roomList = roomMapper.selectAll();
+            if (null != roomList&&roomList.size() >= 0) {
+                JSONObject json = new JSONObject();
+                json.put("roomlist", roomList);
+                builder.data(json);
+                builder.success(true);
+                builder.msg("查询成功！");
+            } else {
+                builder.msg("查询失败！");
             }
         }catch (Exception e){
             e.printStackTrace();
