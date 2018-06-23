@@ -24,4 +24,10 @@ public interface RoomMapper extends Mapper<Room> {
      */
     List<HashMap> RoomDetailInfoList(@Param("roomId") Integer roomId);
 
+    /**
+     * 房间人数加一
+     */
+    void updateRoomNumByRoomId(@Param("RoomId") Integer roomId);
+
+
 }

@@ -22,7 +22,14 @@
     <!--
       WARNING - @mbg.generated
     -->
-    user_info_Id, user_code, nick_name, gold, total_field, win, winning, room_id, position1, 
+    user_info_Id, user_code, nick_name, gold, total_field, win, winning, room_id, position1,
     position2, user_address, qr_code
   </sql>
+
+  <update id="updateRoomByUsercode">
+    UPDATE user_info u SET
+    u.room_id = #{RoomId}
+    where u.user_code = #{Usercode}
+  </update>
+
 </mapper>

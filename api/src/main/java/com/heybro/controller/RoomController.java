@@ -2,6 +2,9 @@ package com.heybro.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.heybro.domain.BusinessMessage;
+import com.heybro.entity.AverageUser;
+import com.heybro.entity.Room;
+import com.heybro.entity.RoomInfo;
 import com.heybro.service.ConcernService;
 import com.heybro.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,7 @@ public class RoomController {
         return roomService.roomInfo();
     }
 
+
     /**
      * 比赛房间总信息
      */
@@ -35,6 +39,16 @@ public class RoomController {
     @RequestMapping("BasketBallRoomInfo")
     public BusinessMessage<JSONObject> basketBallRoomInfo(){
         return roomService.basketBallRoomInfo();
+    }
+
+    /**
+     * 比赛房间总信息
+     */
+    @ResponseBody
+    @RequestMapping("JoinBallRoom")
+    public BusinessMessage<JSONObject>
+    JoinBallRoom(String UserCode,Integer RoomId){
+        return roomService.JoinBallRoom(UserCode,RoomId);
     }
 
 
@@ -75,6 +89,17 @@ public class RoomController {
     @RequestMapping("exitRoom")
     public BusinessMessage<JSONObject> exitRoom(Integer roomId,String userCode){
         return roomService.exitRoom(roomId,userCode);
+    }
+
+    /***
+     *
+     * 查询用户是否已经拥有房间
+     */
+    @ResponseBody
+    @RequestMapping("WethereHaveRoom")
+    public BusinessMessage<JSONObject>
+    WethereHaveRoom(String userCode){
+        return roomService.WethereHaveRoom(userCode);
     }
 
 }

@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,13 +35,11 @@ public class RoomService {
     RoomMapper roomMapper;
 
     @Autowired
-    AverageUserMapper averageUserMapper;
+    RoomInfoMapper roomInfoMapper;
 
     @Autowired
     UserInfoMapper userInfoMapper;
 
-    @Autowired
-    RoomInfoMapper roomInfoMapper;
 
     /**
      *
@@ -164,6 +163,12 @@ public class RoomService {
                 item.put("roomPass","");
             }
 
+            if(RoomList.get(i).get("room_pass_set")!=null){
+                item.put("roomPassSet",RoomList.get(i).get("room_pass_set").toString());
+            }else{
+                item.put("roomPassSet","");
+            }
+
             jsonArray.add(item);
         }
         json.put("list", jsonArray);
@@ -172,6 +177,45 @@ public class RoomService {
         return json;
 
     }
+
+
+    /**
+     *
+     *  添加用户
+     *
+     * */
+
+    @Transactional
+    public BusinessMessage<JSONObject> JoinBallRoom(String UserCode,Integer RoomId)  {
+        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try {
+
+            RoomInfo roomInfo = new RoomInfo();
+            roomInfo.setUserCode("777777");
+            roomInfo.setRoomId(26998403);
+
+            //在房间详情中插入  房间id 用户code
+
+            roomInfoMapper.insert(roomInfo);
+
+            //在用户详情表插入 对应用户的 用户code
+
+            userInfoMapper.updateRoomByUsercode("777777",26998403);
+
+            //当某一个用户进入房间后 房间已有的人数加一
+
+            roomMapper.updateRoomNumByRoomId(26998403);
+
+
+            builder.msg("加入讨论组成功");
+            builder.success(true);
+        } catch (Exception e) {
+            builder.msg("加入讨论组失败，请重试");
+        }
+        return builder.build();
+    }
+
 
     /**
      *
@@ -301,6 +345,55 @@ public class RoomService {
         return builder.build();
     }
 
+
+
+    /**
+     *
+     * 用户是否拥有房间
+     *
+     */
+
+    public BusinessMessage<com.alibaba.fastjson.JSONObject> WethereHaveRoom(String userCode) {
+        BusinessMessageBuilder<com.alibaba.fastjson.JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try {
+
+            Example example = new Example(UserInfo.class);
+            Example.Criteria criteria = example.createCriteria();
+            System.out.println(userCode);
+            criteria.andEqualTo("userCode",userCode);
+            List<UserInfo> UserInfolList = userInfoMapper.selectByExample(example);
+            JSONObject json  = new JSONObject();
+
+            if (null != UserInfolList && UserInfolList.size() > 0) {
+
+                JSONArray jsonArray = new JSONArray();
+
+                for (int i = 0;i<UserInfolList.size();i++) {
+
+                        JSONObject item = new JSONObject();
+                        item.put("roomId", UserInfolList.get(i).getRoomId());
+
+                        jsonArray.add(item);
+                    }
+
+                json.put("list", jsonArray);
+                builder.data(json);
+                builder.success(true);
+
+            }
+            else{
+                builder.msg("加载打球房间信息失败！");
+            }
+
+
+        }catch (Exception e){
+            builder.msg("服务器异常");
+            e.printStackTrace();
+        }
+        return builder.build();
+    }
+
     /**
      * 退出房间
      * */
@@ -336,4 +429,5 @@ public class RoomService {
         }
         return builder.build();
     }
+
 }

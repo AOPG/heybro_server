@@ -29,13 +29,13 @@
     <!--
       WARNING - @mbg.generated
     -->
-    room_Id, room_name, room_num, room_mode, room_rate_low, room_rate_high, room_type, 
-    room_date, room_info_id, win_lose, room_pass_set, room_pass, room_peo, room_lng, 
+    room_Id, room_name, room_num, room_mode, room_rate_low, room_rate_high, room_type,
+    room_date, room_info_id, win_lose, room_pass_set, room_pass, room_peo, room_lng,
     room_lat, master_code, room_city, room_province, room_area
   </sql>
 
   <select id="RoomInfoList" resultType="java.util.HashMap">
-    SELECT r.room_Id,r.room_name,r.room_num,r.room_peo,r.room_pass
+    SELECT r.room_Id,r.room_name,r.room_num,r.room_peo,r.room_pass,r.room_pass_set
     from room r
     where r.room_Id != 0 and r.room_type = 0
     order by room_date desc
@@ -50,10 +50,16 @@
   </select>
 
   <select id="BasketBallRoomInfoList" resultType="java.util.HashMap">
-    SELECT r.room_Id,r.room_name,r.room_num,r.room_peo,r.room_pass
+    SELECT r.room_Id,r.room_name,r.room_num,r.room_peo,r.room_pass,r.room_pass_set
     from room r
     where r.room_Id != 0 and r.room_type = 1
     order by room_date desc
   </select>
+
+  <update id="updateRoomNumByRoomId">
+    UPDATE room r SET
+    r.room_peo = r.room_peo + 1
+    where r.room_id = #{RoomId}
+  </update>
 
 </mapper>
