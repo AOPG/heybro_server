@@ -60,9 +60,9 @@ public class UserController {
      * */
     @ResponseBody
     @RequestMapping("updateUserInfo")
-    public BusinessMessage<JSONObject> updateUserInfo(String userCode,String userNickName,
+    public BusinessMessage<JSONObject> updateUserInfo(String userCode,String userNickName,String userSex,
                                                       String userPortrait,String userIntro,String userProvince,String userCity,String birthday){
-        return userService.updateUserInfo(userCode,userNickName,userPortrait,userIntro,userProvince,userCity,birthday);
+        return userService.updateUserInfo(userCode,userNickName,userSex,userPortrait,userIntro,userProvince,userCity,birthday);
     }
 
     /**

@@ -139,7 +139,7 @@ public class UserService {
     /**
      * 根据userCode 修改用户信息
      * */
-    public BusinessMessage<JSONObject> updateUserInfo(String userCode, String userNickName, String userPortrait,
+    public BusinessMessage<JSONObject> updateUserInfo(String userCode, String userNickName,String userSex, String userPortrait,
                                                       String userIntro, String userProvince, String userCity, String birthday) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
@@ -149,6 +149,7 @@ public class UserService {
             averageUser.setUserNickname(userNickName);
             averageUser.setUserPortrait(userPortrait);
             averageUser.setUserIntro(userIntro);
+            averageUser.setUserSex(userSex);
             averageUser.setUserProvince(userProvince);
             averageUser.setUserCity(userCity);
             if (birthday!=null){
