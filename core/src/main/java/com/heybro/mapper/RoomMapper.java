@@ -29,5 +29,10 @@ public interface RoomMapper extends Mapper<Room> {
      */
     void updateRoomNumByRoomId(@Param("RoomId") Integer roomId);
 
+    /**
+     * 匹配房间
+     */
+    List<HashMap> selectByTerm(@Param("mode") String mode,@Param("userRate") Integer userRate,@Param("type") Integer type);
+
 
 }

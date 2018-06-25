@@ -32,4 +32,11 @@ public class BasketRoomController {
     public BusinessMessage<JSONObject> searchAllRoom(String userCode){
         return basketRoomService.searchAllRoom(userCode);
     }
+
+    //匹配房间
+    @ResponseBody
+    @RequestMapping("matchRoom")
+    public BusinessMessage<JSONObject> matchRoom(String mode,int userRate,int type,String userCode){
+        return basketRoomService.matchRoom(mode,userRate,type,userCode);
+    }
 }

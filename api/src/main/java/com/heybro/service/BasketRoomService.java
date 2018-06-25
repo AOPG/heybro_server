@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -97,7 +98,7 @@ public class BasketRoomService {
         try{
             List<Room> roomList = new ArrayList<Room>();
             roomList = roomMapper.selectAll();
-            if (null != roomList&&roomList.size() >= 0) {
+            if (null != roomList&&roomList.size() > 0) {
                 JSONObject json = new JSONObject();
                 json.put("roomlist", roomList);
                 builder.data(json);
@@ -105,6 +106,57 @@ public class BasketRoomService {
                 builder.msg("查询成功！");
             } else {
                 builder.msg("查询失败！");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            builder.msg("服务器异常！");
+        }
+        return builder.build();
+    }
+
+    /**
+     * 匹配房间
+     * @param mode
+     * @param userRate
+     * @param type
+     * @return
+     */
+    public BusinessMessage<JSONObject> matchRoom(String mode,int userRate,int type,String userCode) {
+        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try{
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUserCode(userCode);
+            userInfo = userInfoMapper.selectOne(userInfo);
+            if(userInfo.getRoomId() ==0||userInfo.getRoomId() == null) {
+                if(mode.equals("无限制")){
+                    mode = null;
+                }
+                List<HashMap> matchRoomList = roomMapper.selectByTerm(mode, userRate, type);
+                if (null != matchRoomList && matchRoomList.size() > 0) {
+                    JSONObject json = new JSONObject();
+                    Room matchRoom = new Room();
+                    if(matchRoomList.get(0).get("room_Id")!=null){
+                        matchRoom.setRoomId((Integer)matchRoomList.get(0).get("room_Id"));
+                    }
+                    if(matchRoomList.get(0).get("room_name")!=null){
+                        matchRoom.setRoomName(matchRoomList.get(0).get("room_name").toString());
+                    }
+                    if(matchRoomList.get(0).get("room_num")!=null){
+                        matchRoom.setRoomNum((Integer)matchRoomList.get(0).get("room_num"));
+                    }
+                    if(matchRoomList.get(0).get("room_peo")!=null){
+                        matchRoom.setRoomPeo(Integer.parseInt(matchRoomList.get(0).get("room_peo").toString()));
+                    }
+                    json.put("matchRoom", matchRoom);
+                    builder.data(json);
+                    builder.success(true);
+                    builder.msg("匹配成功！");
+                } else {
+                    builder.msg("没有符合条件的房间！");
+                }
+            }else{
+                builder.msg("已经加入或创建一个房间，无需匹配");
             }
         }catch (Exception e){
             e.printStackTrace();

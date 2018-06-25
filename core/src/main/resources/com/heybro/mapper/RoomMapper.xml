@@ -56,6 +56,18 @@
     order by room_date desc
   </select>
 
+  <select id="selectByTerm" resultType="java.util.HashMap">
+    SELECT *
+    from room r
+    where r.room_Id != 0 and r.room_peo &lt; r.room_num
+    and r.room_rate_high &gt;= #{userRate} and  #{userRate} &gt;= r.room_rate_low
+    and r.room_type = #{type}
+    <if test="mode != null and mode != ''">
+      and r.room_mode = #{mode}
+    </if>
+    order by r.room_date desc
+  </select>
+
   <update id="updateRoomNumByRoomId">
     UPDATE room r SET
     r.room_peo = r.room_peo + 1
