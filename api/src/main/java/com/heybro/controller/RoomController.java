@@ -47,8 +47,8 @@ public class RoomController {
     @ResponseBody
     @RequestMapping("JoinBallRoom")
     public BusinessMessage<JSONObject>
-    JoinBallRoom(Integer RoomId,String userCode){
-        return roomService.JoinBallRoom(RoomId,userCode);
+    JoinBallRoom(Integer roomId,String userCode){
+        return roomService.JoinBallRoom(roomId,userCode);
     }
 
 

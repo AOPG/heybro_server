@@ -186,14 +186,14 @@ public class RoomService {
      * */
 
     @Transactional
-    public BusinessMessage<JSONObject> JoinBallRoom(Integer RoomId,String userCode)  {
+    public BusinessMessage<JSONObject> JoinBallRoom(Integer roomId,String userCode)  {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
         try {
 
             RoomInfo roomInfo = new RoomInfo();
             roomInfo.setUserCode(userCode);
-            roomInfo.setRoomId(RoomId);
+            roomInfo.setRoomId(roomId);
 
             //在房间详情中插入  房间id 用户code
 
@@ -201,11 +201,11 @@ public class RoomService {
 
             //在用户详情表插入 对应用户的 用户code
 
-            userInfoMapper.updateRoomByUsercode(userCode,RoomId);
+            userInfoMapper.updateRoomByUsercode(userCode,roomId);
 
             //当某一个用户进入房间后 房间已有的人数加一
 
-            roomMapper.updateRoomNumByRoomId(RoomId);
+            roomMapper.updateRoomNumByRoomId(roomId);
 
 
             builder.msg("加入讨论组成功");
