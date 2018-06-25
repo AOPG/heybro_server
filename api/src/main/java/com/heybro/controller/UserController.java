@@ -36,7 +36,7 @@ public class UserController {
      * 注册
      * */
     @ResponseBody
-    @GetMapping("ASRegister")
+    @RequestMapping("ASRegister")
     public BusinessMessage<JSONObject> register(String userName,String userPass){
         return userService.register(userName,userPass);
     }
