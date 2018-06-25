@@ -204,4 +204,34 @@ public class UserService {
         }
         return builder.build();
     }
+
+    /**
+     * 修改密码
+     * */
+
+    public BusinessMessage<JSONObject> resetPassword(String userCode,String oldPpassword,String newPassword) {
+        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try {
+            AverageUser averageUser =  averageUserMapper.selectOne(new AverageUser() {{
+                setUserCode(userCode);
+            }});
+            if (passwordEncoder.matches(oldPpassword,averageUser.getUserPass())){
+                newPassword = passwordEncoder.encode(newPassword);
+                averageUser.setUserPass(newPassword);
+                Example averageUserExample = new Example(AverageUser.class);
+                Example.Criteria criteria = averageUserExample.createCriteria();
+                criteria.andEqualTo("userCode",userCode);
+                averageUserMapper.updateByExampleSelective(averageUser,averageUserExample);
+                builder.msg("修改成功!");
+                builder.success(true);
+            }else {
+                builder.msg("原密码错误!");
+            }
+        }catch (Exception e){
+            builder.msg("服务器异常");
+            e.printStackTrace();
+        }
+        return builder.build();
+    }
 }

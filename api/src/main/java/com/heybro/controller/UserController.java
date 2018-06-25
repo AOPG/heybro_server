@@ -74,4 +74,15 @@ public class UserController {
         return userService.userInfoByCode(userCode);
     }
 
+
+    /**
+     * 修改密码
+     *
+     * */
+    @ResponseBody
+    @RequestMapping("resetPassword")
+    public BusinessMessage<JSONObject> resetPassword(String userCode,String oldPassword,String newPassword){
+        return userService.resetPassword(userCode,oldPassword,newPassword);
+    }
+
 }
