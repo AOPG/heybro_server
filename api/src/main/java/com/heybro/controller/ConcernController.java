@@ -22,4 +22,13 @@ public class ConcernController {
     public BusinessMessage<JSONObject> getConcernIndex(String userCode){
         return concernService.getConcernIndex(userCode);
     }
+
+    /**
+     * 关注操作
+     * */
+    @ResponseBody
+    @RequestMapping("concernByUserCode")
+    public BusinessMessage<JSONObject> concernByUserCode(String userCode,String concernCode){
+        return concernService.concernByUserCode(userCode,concernCode);
+    }
 }

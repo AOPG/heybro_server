@@ -45,4 +45,21 @@ public class ConcernService {
         }
         return builder.build();
     }
+
+    public BusinessMessage<JSONObject> concernByUserCode(String userCode,String concernCode) {
+        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try{
+            Concern concern = new Concern();
+            concern.setUserCode(userCode);
+            concern.setUserConcernCode(concernCode);
+            concernMapper.insert(concern);
+            builder.success(true);
+            builder.msg("关注成功！");
+        }catch (Exception e){
+            e.printStackTrace();
+            builder.msg("服务器异常！");
+        }
+        return builder.build();
+    }
 }
