@@ -38,6 +38,8 @@ public class UserService {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
+
+
     /**
      * 注册
      *password
@@ -56,11 +58,18 @@ public class UserService {
                 String encPassword = passwordEncoder.encode(password);
 
                 user = new AverageUser();
+                UserInfo userInfo = new UserInfo();
+                userInfo.setUserCode(username);
+                userInfo.setGold(0);
+                userInfo.setRoomId(0);
+                userInfoMapper.insert(userInfo);
                 user.setUserName(username);
                 user.setUserPass(encPassword);
+                user.setUserGrade(0);
                 user.setUserCode(username);
                 Date createTime = new Date();
                 user.setCreateTime(createTime);
+                user.setBirthday(createTime);
 //                user.setClientId(UUID.randomUUID().toString().replace("-", ""));
 //                user.setClientSecret(UUID.randomUUID().toString().replace("-", ""));
                 averageUserMapper.insert(user);
