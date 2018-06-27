@@ -89,7 +89,7 @@ public class UserService {
     /**
      * 用户个人信息
      * */
-    public BusinessMessage<JSONObject> userInfo(String username) {
+    public BusinessMessage<JSONObject> userInfo(String username,String accessToken) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
         try {
@@ -98,7 +98,7 @@ public class UserService {
             }});
 
             user.setUserPass("");
-            if (user!=null){
+            if (user!=null&&user.getAccessToken().equals(accessToken)){
                 String userCode =user.getUserCode();
                 UserInfo userInfo = userInfoMapper.selectOne(new UserInfo(){{
                     setUserCode(userCode);
@@ -149,28 +149,35 @@ public class UserService {
      * 根据userCode 修改用户信息
      * */
     public BusinessMessage<JSONObject> updateUserInfo(String userCode, String userNickName,String userSex, String userPortrait,
-                                                      String userIntro, String userProvince, String userCity, String birthday) {
+                                                      String userIntro, String userProvince, String userCity, String birthday,String accessToken) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
         try {
-            AverageUser averageUser = new AverageUser();
-            averageUser.setUserCode(userCode);
-            averageUser.setUserNickname(userNickName);
-            averageUser.setUserPortrait(userPortrait);
-            averageUser.setUserIntro(userIntro);
-            averageUser.setUserSex(userSex);
-            averageUser.setUserProvince(userProvince);
-            averageUser.setUserCity(userCity);
-            if (birthday!=null){
-                averageUser.setBirthday(new Date(Long.parseLong(birthday)));
+            AverageUser averageUser =  averageUserMapper.selectOne(new AverageUser() {{
+                setUserCode(userCode);
+            }});
+            if (null!=averageUser&&averageUser.getAccessToken().equals(accessToken)){
+                averageUser = new AverageUser();
+                averageUser.setUserCode(userCode);
+                averageUser.setUserNickname(userNickName);
+                averageUser.setUserPortrait(userPortrait);
+                averageUser.setUserIntro(userIntro);
+                averageUser.setUserSex(userSex);
+                averageUser.setUserProvince(userProvince);
+                averageUser.setUserCity(userCity);
+                if (birthday!=null){
+                    averageUser.setBirthday(new Date(Long.parseLong(birthday)));
+                }
+                Example averageUserExample = new Example(AverageUser.class);
+                Example.Criteria criteria = averageUserExample.createCriteria();
+                criteria.andEqualTo("userCode",userCode);
+                averageUserMapper.updateByExampleSelective(averageUser,averageUserExample);
+                builder.code("200");
+                builder.success(true);
+                builder.msg("修改成功！");
+            }else {
+                builder.msg("修改失败！");
             }
-            Example averageUserExample = new Example(AverageUser.class);
-            Example.Criteria criteria = averageUserExample.createCriteria();
-            criteria.andEqualTo("userCode",userCode);
-            averageUserMapper.updateByExampleSelective(averageUser,averageUserExample);
-            builder.code("200");
-            builder.success(true);
-            builder.msg("修改成功！");
         }catch (Exception e){
             builder.code("500");
             builder.msg("服务器异常，修改失败");
@@ -218,14 +225,14 @@ public class UserService {
      * 修改密码
      * */
 
-    public BusinessMessage<JSONObject> resetPassword(String userCode,String oldPpassword,String newPassword) {
+    public BusinessMessage<JSONObject> resetPassword(String userCode,String oldPpassword,String newPassword,String accessToken) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
         try {
             AverageUser averageUser =  averageUserMapper.selectOne(new AverageUser() {{
                 setUserCode(userCode);
             }});
-            if (passwordEncoder.matches(oldPpassword,averageUser.getUserPass())){
+            if (passwordEncoder.matches(oldPpassword,averageUser.getUserPass())&&averageUser.getAccessToken().equals(accessToken)){
                 newPassword = passwordEncoder.encode(newPassword);
                 averageUser.setUserPass(newPassword);
                 Example averageUserExample = new Example(AverageUser.class);

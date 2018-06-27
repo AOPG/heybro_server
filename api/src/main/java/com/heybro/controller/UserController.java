@@ -46,8 +46,8 @@ public class UserController {
      * */
     @ResponseBody
     @RequestMapping("userInfo")
-    public BusinessMessage<JSONObject> userInfo(String username){
-        return userService.userInfo(username);
+    public BusinessMessage<JSONObject> userInfo(String username,String access_token){
+        return userService.userInfo(username,access_token);
     }
 
     /**
@@ -61,8 +61,8 @@ public class UserController {
     @ResponseBody
     @RequestMapping("updateUserInfo")
     public BusinessMessage<JSONObject> updateUserInfo(String userCode,String userNickName,String userSex,
-                                                      String userPortrait,String userIntro,String userProvince,String userCity,String birthday){
-        return userService.updateUserInfo(userCode,userNickName,userSex,userPortrait,userIntro,userProvince,userCity,birthday);
+                                                      String userPortrait,String userIntro,String userProvince,String userCity,String birthday,String access_token){
+        return userService.updateUserInfo(userCode,userNickName,userSex,userPortrait,userIntro,userProvince,userCity,birthday,access_token);
     }
 
     /**
@@ -81,8 +81,8 @@ public class UserController {
      * */
     @ResponseBody
     @RequestMapping("resetPassword")
-    public BusinessMessage<JSONObject> resetPassword(String userCode,String oldPassword,String newPassword){
-        return userService.resetPassword(userCode,oldPassword,newPassword);
+    public BusinessMessage<JSONObject> resetPassword(String userCode,String oldPassword,String newPassword,String access_token){
+        return userService.resetPassword(userCode,oldPassword,newPassword,access_token);
     }
 
 

@@ -4,7 +4,9 @@ package com.heybro.service;
 import com.alibaba.fastjson.JSONObject;
 import com.heybro.domain.BusinessMessage;
 import com.heybro.domain.BusinessMessageBuilder;
+import com.heybro.entity.AverageUser;
 import com.heybro.entity.Concern;
+import com.heybro.mapper.AverageUserMapper;
 import com.heybro.mapper.ConcernMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class ConcernService {
 
     @Autowired
     ConcernMapper concernMapper;
+
+    @Autowired
+    AverageUserMapper averageUserMapper;
 
     /**
      * 所有关注，未分页
@@ -46,16 +51,23 @@ public class ConcernService {
         return builder.build();
     }
 
-    public BusinessMessage<JSONObject> concernByUserCode(String userCode,String concernCode) {
+    public BusinessMessage<JSONObject> concernByUserCode(String userCode,String concernCode,String accessToken) {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
         try{
-            Concern concern = new Concern();
-            concern.setUserCode(userCode);
-            concern.setUserConcernCode(concernCode);
-            concernMapper.insert(concern);
-            builder.success(true);
-            builder.msg("关注成功！");
+            AverageUser user = averageUserMapper.selectOne(new AverageUser(){{
+                setUserCode(userCode);
+            }});
+            if (null!=user&&user.getAccessToken().equals(accessToken)){
+                Concern concern = new Concern();
+                concern.setUserCode(userCode);
+                concern.setUserConcernCode(concernCode);
+                concernMapper.insert(concern);
+                builder.success(true);
+                builder.msg("关注成功！");
+            }else {
+                builder.msg("关注失败！");
+            }
         }catch (Exception e){
             e.printStackTrace();
             builder.msg("服务器异常！");

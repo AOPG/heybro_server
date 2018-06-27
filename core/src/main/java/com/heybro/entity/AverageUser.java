@@ -128,6 +128,9 @@ public class AverageUser implements Serializable {
      */
     private Date birthday;
 
+    @Column(name = "access_token")
+    private String accessToken;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -504,6 +507,20 @@ public class AverageUser implements Serializable {
         this.birthday = birthday;
     }
 
+    /**
+     * @return access_token
+     */
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    /**
+     * @param accessToken
+     */
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken == null ? null : accessToken.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -531,6 +548,7 @@ public class AverageUser implements Serializable {
         sb.append(", createTime=").append(createTime);
         sb.append(", enable=").append(enable);
         sb.append(", birthday=").append(birthday);
+        sb.append(", accessToken=").append(accessToken);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
