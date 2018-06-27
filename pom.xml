@@ -46,26 +46,6 @@
         <commons-io.version>2.4</commons-io.version>
     </properties>
 
-    <!--&lt;!&ndash; 依赖仓库配置 &ndash;&gt;-->
-    <!--<repositories>-->
-        <!--&lt;!&ndash; 心之承影Nexus &ndash;&gt;-->
-        <!--<repository>-->
-            <!--<id>XZCY-Nexus-Public</id>-->
-            <!--<name>XZCY-Nexus-Public</name>-->
-            <!--<url>https://nexus.xzcysoft.com/repository/maven-public/</url>-->
-        <!--</repository>-->
-    <!--</repositories>-->
-
-    <!--&lt;!&ndash; 插件仓库配置 &ndash;&gt;-->
-    <!--<pluginRepositories>-->
-        <!--&lt;!&ndash; 心之承影Nexus &ndash;&gt;-->
-        <!--<pluginRepository>-->
-            <!--<id>XZCY-Nexus-Public</id>-->
-            <!--<name>XZCY-Nexus-Public</name>-->
-            <!--<url>https://nexus.xzcysoft.com/repository/maven-public/</url>-->
-        <!--</pluginRepository>-->
-    <!--</pluginRepositories>-->
-
     <!-- 在这里引入子模块需要用的公共组件 -->
     <dependencies>
         <dependency>
