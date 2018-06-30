@@ -8,8 +8,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heybro.domain.BusinessMessage;
 import com.heybro.domain.BusinessMessageBuilder;
 import com.heybro.entity.AverageUser;
+import com.heybro.entity.Concern;
 import com.heybro.entity.UserInfo;
 import com.heybro.mapper.AverageUserMapper;
+import com.heybro.mapper.ConcernMapper;
 import com.heybro.mapper.UserInfoMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ public class UserService {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
+
+    @Autowired
+    private ConcernMapper concernMapper;
 
 
 
@@ -243,6 +248,51 @@ public class UserService {
                 builder.success(true);
             }else {
                 builder.msg("原密码错误!");
+            }
+        }catch (Exception e){
+            builder.msg("服务器异常");
+            e.printStackTrace();
+        }
+        return builder.build();
+    }
+
+    /**
+     * 根据userCode获取用户信息
+     * */
+
+    public BusinessMessage<JSONObject> userInfoConcernByCode(String userCode,String concernCode) {
+        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try {
+            AverageUser user = averageUserMapper.selectOne(new AverageUser() {{
+                setUserCode(concernCode);
+            }});
+
+            user.setUserPass("");
+            user.setUserName("");
+            if (user!=null){
+                UserInfo userInfo = userInfoMapper.selectOne(new UserInfo(){{
+                    setUserCode(concernCode);
+                }});
+                boolean isConcern = false;
+                Example concernExample = new Example(Concern.class);
+                Example.Criteria criteria = concernExample.createCriteria();
+                criteria.andEqualTo("userCode",userCode);
+                criteria.andEqualTo("userConcernCode",concernCode);
+                int count = concernMapper.selectByExample(concernExample).size();
+                if (count>1){
+                    isConcern = true;
+                }
+
+                JSONObject jsonUser = JSONObject.parseObject(JSONObject.toJSONString(user));
+                JSONObject jsonInfo = JSONObject.parseObject(JSONObject.toJSONString(userInfo));
+                jsonUser.put("userInfo",jsonInfo);
+                jsonUser.put("isConcern",isConcern);
+                builder.msg("加载个人信息成功！");
+                builder.success(true);
+                builder.data(jsonUser);
+            }else {
+                builder.msg("加载个人信息失败！");
             }
         }catch (Exception e){
             builder.msg("服务器异常");

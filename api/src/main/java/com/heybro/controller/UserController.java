@@ -85,6 +85,16 @@ public class UserController {
         return userService.resetPassword(userCode,oldPassword,newPassword,access_token);
     }
 
+    /**
+     * 根据userCode获取个人信息并获取关注信息
+     * @param userCode 用户code
+     * @param concernCode 被查看人的code
+     * */
+    @ResponseBody
+    @RequestMapping("userInfoConcernByCode")
+    public BusinessMessage<JSONObject> userInfoConcernByCode(String userCode,String concernCode){
+        return userService.userInfoConcernByCode(userCode,concernCode);
+    }
 
 
 

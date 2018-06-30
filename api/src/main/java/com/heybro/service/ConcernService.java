@@ -11,6 +11,8 @@ import com.heybro.mapper.ConcernMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
+
 import java.util.List;
 
 @Service
@@ -62,9 +64,20 @@ public class ConcernService {
                 Concern concern = new Concern();
                 concern.setUserCode(userCode);
                 concern.setUserConcernCode(concernCode);
-                concernMapper.insert(concern);
-                builder.success(true);
-                builder.msg("关注成功！");
+
+                Example concernExample = new Example(Concern.class);
+                Example.Criteria criteria = concernExample.createCriteria();
+                criteria.andEqualTo("userCode",userCode);
+                criteria.andEqualTo("userConcernCode",concernCode);
+                int count = concernMapper.selectByExample(concernExample).size();
+                if (count>1){
+                    builder.success(false);
+                    builder.msg("您已经关注过了！");
+                }else {
+                    concernMapper.insert(concern);
+                    builder.success(true);
+                    builder.msg("关注成功！");
+                }
             }else {
                 builder.msg("关注失败！");
             }

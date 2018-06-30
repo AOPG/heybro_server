@@ -35,4 +35,5 @@ public class ConcernController {
     public BusinessMessage<JSONObject> concernByUserCode(String userCode,String concernCode,String access_token){
         return concernService.concernByUserCode(userCode,concernCode,access_token);
     }
+
 }
