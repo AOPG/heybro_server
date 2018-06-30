@@ -96,4 +96,13 @@ public class UserController {
         return userService.userInfoConcernByCode(userCode,concernCode);
     }
 
+    /**
+     * 获取用户地理位置信息
+     * */
+    @ResponseBody
+    @RequestMapping("upLoadUserLoactionInfo")
+    public BusinessMessage<JSONObject> upLoadUserLoactionInfo(String username,String lat,String lng){
+        return userService.upLoadUserLoactionInfo(username,lat,lng);
+    }
+
 }

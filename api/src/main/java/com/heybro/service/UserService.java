@@ -300,4 +300,39 @@ public class UserService {
         }
         return builder.build();
     }
+
+    /**
+     * 用户地理位置信息
+     * */
+
+    public BusinessMessage<JSONObject> upLoadUserLoactionInfo(String userName, String lat, String lng) {
+        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try {
+            AverageUser user = averageUserMapper.selectOne(new AverageUser() {{
+                setUserName(userName);
+            }});
+            if (null!=lat&&!lat.equals("")){
+                if (null!=lng&&!lng.equals("")){
+                    user.setUserLat(lat);
+                    user.setUserLng(lng);
+                    int count = averageUserMapper.updateByPrimaryKey(user);
+                    if (count>0){
+                        builder.success(true);
+                        builder.msg("上传成功！");
+                    }else {
+                        builder.msg("上传失败！");
+                    }
+                }else {
+                    builder.msg("上传失败！");
+                }
+            }else {
+                builder.msg("上传失败！");
+            }
+        }catch (Exception e){
+            builder.msg("服务器异常");
+            e.printStackTrace();
+        }
+        return builder.build();
+    }
 }
