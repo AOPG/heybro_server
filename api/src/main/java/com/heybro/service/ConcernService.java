@@ -60,10 +60,15 @@ public class ConcernService {
             AverageUser user = averageUserMapper.selectOne(new AverageUser(){{
                 setUserCode(userCode);
             }});
+
+            AverageUser concernUser = averageUserMapper.selectOne(new AverageUser(){{
+                setUserCode(concernCode);
+            }});
             if (null!=user&&user.getAccessToken().equals(accessToken)){
                 Concern concern = new Concern();
                 concern.setUserCode(userCode);
                 concern.setUserConcernCode(concernCode);
+                concern.setUserNote(concernUser.getUserNickname());
 
                 Example concernExample = new Example(Concern.class);
                 Example.Criteria criteria = concernExample.createCriteria();
