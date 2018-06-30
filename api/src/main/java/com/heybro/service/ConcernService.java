@@ -92,4 +92,36 @@ public class ConcernService {
         }
         return builder.build();
     }
+
+    public BusinessMessage<JSONObject> cancelConcern(String userCode, String concernCode, String access_token) {
+        BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
+        builder.success(false);
+        try{
+            AverageUser user = averageUserMapper.selectOne(new AverageUser(){{
+                setUserCode(userCode);
+            }});
+
+            if (null!=user&&user.getAccessToken().equals(access_token)){
+
+                Example concernExample = new Example(Concern.class);
+                Example.Criteria criteria = concernExample.createCriteria();
+                criteria.andEqualTo("userCode",userCode);
+                criteria.andEqualTo("userConcernCode",concernCode);
+                int count = concernMapper.deleteByExample(concernExample);
+                if (count>0){
+                    builder.success(true);
+                    builder.msg("取消关注成功！");
+                }else {
+                    builder.success(false);
+                    builder.msg("您未关注该用户！");
+                }
+            }else {
+                builder.msg("取消关注失败！");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            builder.msg("服务器异常！");
+        }
+        return builder.build();
+    }
 }

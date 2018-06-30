@@ -39,5 +39,10 @@ public class ConcernController {
     /**
      * 取消关注
      * */
+    @ResponseBody
+    @RequestMapping("cancelConcern")
+    public BusinessMessage<JSONObject> cancelConcern(String userCode,String concernCode,String access_token){
+        return concernService.cancelConcern(userCode,concernCode,access_token);
+    }
 
 }
