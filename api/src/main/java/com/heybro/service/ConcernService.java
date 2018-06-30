@@ -70,7 +70,7 @@ public class ConcernService {
                 criteria.andEqualTo("userCode",userCode);
                 criteria.andEqualTo("userConcernCode",concernCode);
                 int count = concernMapper.selectByExample(concernExample).size();
-                if (count>1){
+                if (count>0){
                     builder.success(false);
                     builder.msg("您已经关注过了！");
                 }else {

@@ -36,4 +36,8 @@ public class ConcernController {
         return concernService.concernByUserCode(userCode,concernCode,access_token);
     }
 
+    /**
+     * 取消关注
+     * */
+
 }

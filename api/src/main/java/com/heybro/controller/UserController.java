@@ -96,6 +96,4 @@ public class UserController {
         return userService.userInfoConcernByCode(userCode,concernCode);
     }
 
-
-
 }

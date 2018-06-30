@@ -280,7 +280,7 @@ public class UserService {
                 criteria.andEqualTo("userCode",userCode);
                 criteria.andEqualTo("userConcernCode",concernCode);
                 int count = concernMapper.selectByExample(concernExample).size();
-                if (count>1){
+                if (count>0){
                     isConcern = true;
                 }
 
