@@ -169,6 +169,18 @@ public class RoomService {
                 item.put("roomPassSet","");
             }
 
+            if(RoomList.get(i).get("room_lat")!=null){
+                item.put("roomLat",RoomList.get(i).get("room_lat").toString());
+            }else{
+                item.put("roomLat","");
+            }
+
+            if(RoomList.get(i).get("room_lng")!=null){
+                item.put("roomLng",RoomList.get(i).get("room_lng").toString());
+            }else{
+                item.put("roomLng","");
+            }
+
             jsonArray.add(item);
         }
         json.put("list", jsonArray);
