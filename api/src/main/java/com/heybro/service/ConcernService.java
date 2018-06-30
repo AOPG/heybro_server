@@ -13,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -34,12 +37,25 @@ public class ConcernService {
         builder.success(false);
         try{
             List<Concern> list;
+            List<Map<String,String>> concernInfo = new ArrayList<>();
             Concern concern = new Concern();
             concern.setUserCode(userCode);
             list = concernMapper.select(concern);
             if (null!=list&&list.size()>= 0){
+                for (int i = 0; i < list.size(); i++) {
+                    String concernCode = list.get(i).getUserConcernCode();
+                    AverageUser user = averageUserMapper.selectOne(new AverageUser(){{
+                        setUserCode(concernCode);
+                    }});
+                    concern = list.get(i);
+                    Map<String,String> userInfo = new HashMap<>();
+                    userInfo.put("userNote",concern.getUserNote());
+                    userInfo.put("userConcernCode",concern.getUserConcernCode());
+                    userInfo.put("userPortrait",user.getUserPortrait());
+                    concernInfo.add(userInfo);
+                }
                 JSONObject json = new JSONObject();
-                json.put("list",list);
+                json.put("list",concernInfo);
                 builder.data(json);
                 builder.success(true);
                 builder.msg("查询成功！");
