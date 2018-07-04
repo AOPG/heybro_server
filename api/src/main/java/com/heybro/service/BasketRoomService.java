@@ -12,6 +12,7 @@ import com.heybro.mapper.RoomMapper;
 import com.heybro.mapper.UserInfoMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import tk.mybatis.mapper.entity.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -98,8 +99,11 @@ public class BasketRoomService {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
         try{
+            Example roomExample = new Example(Room.class);
+            Example.Criteria roomCriteria = roomExample.createCriteria();
+            roomCriteria.andNotEqualTo("type",2);
             List<Room> roomList = new ArrayList<Room>();
-            roomList = roomMapper.selectAll();
+            roomList = roomMapper.selectByExample(roomCriteria);
             if (null != roomList&&roomList.size() > 0) {
                 JSONObject json = new JSONObject();
                 json.put("roomlist", roomList);
