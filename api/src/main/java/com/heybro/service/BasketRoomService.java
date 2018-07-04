@@ -4,6 +4,7 @@ package com.heybro.service;
 import com.alibaba.fastjson.JSONObject;
 import com.heybro.domain.BusinessMessage;
 import com.heybro.domain.BusinessMessageBuilder;
+import com.heybro.entity.AverageUser;
 import com.heybro.entity.Room;
 import com.heybro.entity.RoomInfo;
 import com.heybro.entity.UserInfo;
@@ -12,8 +13,8 @@ import com.heybro.mapper.RoomMapper;
 import com.heybro.mapper.UserInfoMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import tk.mybatis.mapper.entity.Example;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -99,11 +100,11 @@ public class BasketRoomService {
         BusinessMessageBuilder<JSONObject> builder = new BusinessMessageBuilder<>();
         builder.success(false);
         try{
-            Example roomExample = new Example(Room.class);
-            Example.Criteria roomCriteria = roomExample.createCriteria();
-            roomCriteria.andNotEqualTo("roomType",2);
-            List<Room> roomList = new ArrayList<Room>();
-            roomList = roomMapper.selectByExample(roomCriteria);
+
+            Example example = new Example(Room.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andNotEqualTo("roomType",2);
+            List<Room> roomList = roomMapper.selectByExample(example);
             if (null != roomList&&roomList.size() > 0) {
                 JSONObject json = new JSONObject();
                 json.put("roomlist", roomList);
