@@ -101,7 +101,7 @@ public class BasketRoomService {
         try{
             Example roomExample = new Example(Room.class);
             Example.Criteria roomCriteria = roomExample.createCriteria();
-            roomCriteria.andNotEqualTo("type",2);
+            roomCriteria.andNotEqualTo("roomType",2);
             List<Room> roomList = new ArrayList<Room>();
             roomList = roomMapper.selectByExample(roomCriteria);
             if (null != roomList&&roomList.size() > 0) {
